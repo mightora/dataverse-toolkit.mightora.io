@@ -15,4 +15,24 @@ with zipfile.ZipFile(dist / "downloads" / "mightora-dataverse-tools.zip") as arc
         assert (dist / "downloads" / name).read_bytes() == archive.read(name)
         assert (dist / "webresources" / name).exists()
         assert name in index
+
+# Branding and trust requirements: genuine evidence links and correct section order.
+assert index.index("<mightora-author>") < index.index('class="quality-badges"') < index.index("<mightora-footer>")
+assert index.count("<mightora-footer>") == 1
+assert index.count("badge.svg?branch=main") == 2
+for required in (
+    "class=\"footer-bottom\"",
+    "class=\"author-avatar\"",
+    "class=\"author-blog-logo\"",
+    "class=\"quality-badge-list\"",
+    "footer.yaml",
+    "raw.replace",
+    "actions/workflows/pages.yml",
+    "actions/workflows/codeql.yml",
+    "blob/main/LICENSE",
+    "img.shields.io/badge/source-GitHub",
+):
+    assert required in index, f"Missing footer or badge requirement: {required}"
+assert index.index("js-yaml") < index.index("components.js"), "YAML parser must load first"
+
 print("Build verification passed: six HTML resources, ZIP, domain, and brand components.")
