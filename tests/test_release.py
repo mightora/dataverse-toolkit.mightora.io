@@ -34,5 +34,6 @@ for required in (
 ):
     assert required in index, f"Missing footer or badge requirement: {required}"
 assert index.index("js-yaml") < index.index("components.js"), "YAML parser must load first"
+assert index.index("Mightora shared-footer compatibility") < index.index("components.js"), "Footer YAML normalisation must initialise before shared components"
 
 print("Build verification passed: six HTML resources, ZIP, domain, and brand components.")
