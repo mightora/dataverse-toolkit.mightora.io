@@ -9,7 +9,7 @@ index = (dist / "index.html").read_text()
 for required in ("<mightora-header", "<mightora-author", "<mightora-footer", "https://dataverse-tools.mightora.io"):
     assert required in index, required
 with zipfile.ZipFile(dist / "downloads" / "mightora-dataverse-tools.zip") as archive:
-    for slug in ("trace", "metadata", "fetchxml", "counter", "solutions", "relationships", "webresources", "views", "security", "environment", "migration"):
+    for slug in ("trace", "metadata", "fetchxml", "counter", "solutions", "relationships", "webresources", "views", "security", "environment", "migration", "rest", "fetchflow", "solution_explorer"):
         name = f"mgt_{slug}.html"
         assert name in archive.namelist()
         assert (dist / "downloads" / name).read_bytes() == archive.read(name)
@@ -37,7 +37,7 @@ assert index.index("js-yaml") < index.index("components.js"), "YAML parser must 
 assert index.index("Mightora shared-footer compatibility") < index.index("components.js"), "Footer YAML normalisation must initialise before shared components"
 
 assert "mgt_migration.html" in index
-assert index.count('class="card"') == 11
+assert index.count('class="card"') == 14
 assert "Public Beta" in index
 assert "static.cloudflareinsights.com/beacon.min.js" in index
 print("Build verification passed: eleven HTML resources, ZIP, domain, and brand components.")
