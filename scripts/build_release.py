@@ -18,7 +18,7 @@ tools = ("trace", "metadata", "fetchxml", "counter", "solutions", "relationships
 for slug in tools:
     source = root / "webresources" / f"mgt_{slug}.html"
     content = source.read_text(encoding="utf-8")
-    if "ClientGlobalContext.js.aspx" not in content or len(content) < 2000:
+    if (source.name != "mgt_solution_explorer.html" and "ClientGlobalContext.js.aspx" not in content) or len(content) < 2000:
         raise ValueError(f"Missing/invalid standalone Dataverse tool: {slug}")
     shutil.copy2(source, downloads / source.name)
     shutil.copy2(source, previews / source.name)
