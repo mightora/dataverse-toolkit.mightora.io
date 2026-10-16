@@ -26,6 +26,8 @@ jobs:
         run: python tests/test_scripts.py
       - name: Validate configuration migration safety checks
         run: python tests/test_migration.py
+      - name: Run Configuration Migration Studio behaviour tests
+        run: node tests/migration.test.cjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
