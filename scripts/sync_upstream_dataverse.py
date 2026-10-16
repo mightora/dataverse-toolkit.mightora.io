@@ -15,7 +15,7 @@ SOURCES = {
 }
 PINNED = {
     "rest": "66d0b5cd45ef494dfadee24454fb4bb373569149",
-    "fetchflow": "000bb5868f7bf8c5731af09eb01e1bcf1f54e1e4",
+    "fetchflow": "3afc046ee40373ce23f37396dabd0db9aa53b192",
     "solution_explorer": "7157e2d37445ae35e93a36d6d5a8f2b4393276fc",
 }
 EXISTING = ("trace", "metadata", "fetchxml", "counter", "solutions",
