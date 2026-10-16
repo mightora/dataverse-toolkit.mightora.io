@@ -37,8 +37,8 @@ for slug, source in SOURCES.items():
     if "Public Beta" not in content:
         import re
         content, count = re.subn(
-            r"(<body\\b[^>]*>)",
-            r'\\1<aside role="status" class="beta-banner"><strong>Public Beta</strong> — This Dataverse tool is still under testing; verify results and only use write actions in a development environment.</aside>',
+            r"(<body\b[^>]*>)",
+            r'\1<aside role="status" class="beta-banner"><strong>Public Beta</strong> — This Dataverse tool is still under testing; verify results and only use write actions in a development environment.</aside>',
             content, count=1, flags=re.I
         )
         if count != 1:
