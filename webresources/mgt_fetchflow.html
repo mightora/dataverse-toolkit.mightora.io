@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>FetchFlow | Live FetchXML Builder | Mightora</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-QjKJdfyhqIZQh73B4+h1kU/E4y2qsWqhteM5eLlYeyA='; style-src 'sha256-lEVxTtTP+gKM0BnnGvDutSy3yeKiQvLjovmvYvcjsdA='; img-src data:; font-src data:; connect-src 'self'; object-src 'none'; frame-src 'none'; form-action 'none'; base-uri 'none'">
+<style>:root{--ink:#183545;--muted:#617887;--line:#dce6e9;--bg:#f5f8fa;--teal:#087f87;--soft:#eaf7f5;--focus:#d48232}*{box-sizing:border-box}[hidden]{display:none!important}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);font:14px/1.5 Inter,"Segoe UI",Arial,sans-serif;color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.5}a{color:var(--teal)}:where(button,a,input,select,textarea):focus-visible{outline:3px solid var(--focus);outline-offset:2px}.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.app{min-height:100vh;display:flex;flex-direction:column}.app-head{display:flex;align-items:center;gap:18px;justify-content:space-between;background:#102f40;color:#fff;padding:13px clamp(14px,2.7vw,34px);border-bottom:3px solid var(--teal)}.brand{display:flex;align-items:center;gap:15px;min-width:0}.brand img{max-width:130px;height:auto;max-height:36px;object-fit:contain}.brand-divider{height:30px;border-left:1px solid #fff4}.brand strong,.brand span{display:block}.brand strong{font-size:19px;line-height:1.25}.brand span{font-size:11px;color:#c5dcdf}.app-actions,.query-controls,.workspace-actions,.row-actions,.card-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.button{border:1px solid #b9ccd2;border-radius:7px;padding:9px 13px;background:#fff;color:var(--ink);font-weight:700;min-height:37px;text-decoration:none}.button:hover:not(:disabled){background:#edf4f4;border-color:#80babb}.button.primary{background:#087f87;border-color:#087f87;color:#fff}.button.primary:hover{background:#05676d}.button.secondary{background:transparent;border-color:#b7d0d4;color:inherit}.app-head .button.secondary{color:#e8f8f8;border-color:#7794a1}.app-head .button.secondary:hover{background:#ffffff18}.button.subtle{background:#f5f8fa}.button.mini{font-size:12px;padding:5px 9px;min-height:29px}.button.full{width:100%;margin-top:11px}.icon-button{border:1px solid var(--line);background:#fff;border-radius:6px;min-width:30px;min-height:30px;font-size:18px}.connection{font-size:12px;color:#fde0ca;padding:5px 9px;border:1px solid #fff3;border-radius:100px}.connection.ok{color:#a6f1cd;border-color:#369675}.toolbar-strip{display:flex;justify-content:space-between;align-items:center;gap:14px;background:#fff;border-bottom:1px solid var(--line);padding:11px clamp(14px,2.7vw,34px)}.query-controls label{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:750;color:var(--muted)}.query-controls input:not([type=checkbox]),.query-controls select{border:1px solid var(--line);border-radius:6px;padding:6px 8px;color:var(--ink)}#query-top{width:60px}#query-sort{width:170px}#query-order{width:122px;border:1px solid var(--line);border-radius:6px;padding:6px}.toolbar-note{font-size:11px;color:var(--muted)}main{flex:1;padding:19px clamp(14px,2.7vw,34px) 30px;min-width:0}.builder-view{display:grid;grid-template-columns:minmax(245px,320px) minmax(0,1fr);align-items:start;gap:18px}.panel{background:#fff;border:1px solid var(--line);border-radius:11px;box-shadow:0 4px 15px #16384a08;min-width:0}.palette{padding:16px;position:sticky;top:14px;max-height:calc(100vh - 130px);overflow:auto}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.panel-head h2{font-size:20px;margin:1px 0 15px}.eyebrow{font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--teal)}.field-label{display:block;font-size:12px;font-weight:750;margin:10px 0 4px}.palette input,.palette select,.query-card select,.query-card input:not([type=checkbox]),.filter-row select,.filter-row input{width:100%;min-width:0;border:1px solid #cbdce1;border-radius:7px;background:#fff;color:var(--ink);padding:8px}.palette #tables{height:138px}.palette option{padding:5px}.palette-divider{margin:19px 0 13px;border-top:1px solid var(--line)}.palette-heading{display:flex;align-items:start;justify-content:space-between;gap:6px}.palette-heading h3{margin:1px 0 8px;font-size:15px}.counter{color:var(--muted);font-size:12px}.field-list{display:grid;gap:6px;margin-top:11px;max-height:290px;overflow:auto}.field-row{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#faffff;border-radius:7px;padding:6px 7px;min-width:0}.field-row[draggable=true]{cursor:grab}.field-name{min-width:0;flex:1}.field-name strong,.field-name small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.field-name strong{font-size:12px}.field-name small{font-size:10px;color:var(--muted)}.field-add{border:1px solid #a6d5cf;background:var(--soft);color:var(--teal);font-weight:800;border-radius:5px;width:27px;height:27px}.help,.status{font-size:12px;color:var(--muted);line-height:1.55}.status.error{color:#a6282b}.design-heading{display:flex;align-items:start;justify-content:space-between;gap:12px;margin:3px 0 16px}.design-heading h1{font-size:clamp(21px,2vw,27px);margin:3px 0 2px}.design-heading p{margin:0;color:var(--muted)}.query-canvas{display:grid;gap:13px}.query-card{background:#fff;border:1px solid #cbdfe0;border-radius:11px;overflow:hidden;box-shadow:0 3px 12px #193b4d09}.query-card.selected{border-color:#15959b;box-shadow:0 0 0 2px #d6f4ef}.query-card.link-card{margin-left:min(5vw,48px);border-left:4px solid #7161a8}.card-head{background:#eff7f7;padding:13px 16px;display:flex;gap:12px;justify-content:space-between;align-items:center}.link-card .card-head{background:#f0eff9}.card-title{font-size:16px;font-weight:800;display:block}.card-subtitle{font-size:11px;color:var(--muted);display:block}.card-body{padding:15px}.card-group{margin-bottom:15px}.card-group h3{margin:0 0 7px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}.field-drop{min-height:56px;padding:9px;display:flex;flex-wrap:wrap;gap:7px;border:2px dashed #c4d9da;border-radius:8px;background:#faffff;align-items:center}.field-drop.active{border-color:var(--teal);background:#e6f8f5}.field-drop .empty{font-size:12px;color:var(--muted)}.chip{display:inline-flex;align-items:center;gap:5px;background:#deefef;border:1px solid #b8d8d8;border-radius:6px;padding:5px 8px;font-size:12px;color:#15515a}.chip button{background:none;border:0;color:#43666a;font-weight:900;font-size:15px;line-height:1}.filter-row{display:grid;grid-template-columns:minmax(120px,1fr) minmax(105px,.8fr) minmax(130px,1fr) 30px;gap:7px;margin-top:7px}.filter-row .remove{border:1px solid #e4cacc;background:#fff;border-radius:6px;color:#9e343d;font-size:17px}.field-config{display:grid;grid-template-columns:repeat(3,minmax(110px,1fr));gap:9px;margin:10px 0}.field-config label,.filter-bar label{font-size:12px;color:var(--muted);font-weight:700}.field-config label input,.field-config label select{display:block;margin-top:4px}.filter-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.filter-bar select{max-width:145px;padding:5px}.link-add{margin-top:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.link-add button{color:var(--teal)}.canvas-hint{color:var(--muted);font-size:12px;margin-top:14px}.workspace{padding:22px;max-width:1500px;margin:auto}.workspace-head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;margin-bottom:17px;flex-wrap:wrap}.workspace-head h2{font-size:24px;margin:2px 0}.workspace-head p{color:var(--muted);margin:2px 0}.workspace-actions{justify-content:flex-end}.workspace textarea{width:100%;min-height:calc(100vh - 260px);background:#102e40;color:#d7faf5;font:13px/1.6 Consolas,monospace;padding:18px;border:1px solid #39596b;border-radius:8px;resize:vertical;white-space:pre}.workspace textarea:read-only{opacity:1}.xml-tools{display:flex;align-items:center;gap:13px;margin-top:11px;flex-wrap:wrap}.xml-tools span{font-size:12px;color:var(--muted)}.results-scroll{overflow:auto;max-height:65vh;border:1px solid var(--line);border-radius:8px}#results-table{width:100%;border-collapse:collapse;font-size:12px}#results-table th,#results-table td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;max-width:270px;overflow-wrap:anywhere}#results-table th{position:sticky;top:0;background:#e7f4f3}#results-table tr:nth-child(even){background:#f7fafb}.diagram-stack{display:grid;gap:15px}.diagram-stack section{border:1px solid var(--line);border-radius:9px;padding:14px}.diagram-stack h3{margin:0 0 10px}.diagram{overflow:auto;max-height:560px}.diagram svg{display:block;min-width:700px;height:auto}.app-footer{background:#102f40;color:#d5e8ea;padding:13px clamp(14px,2.7vw,34px);display:flex;justify-content:space-between;gap:13px;flex-wrap:wrap;font-size:11px}.app-footer a{color:#bcf5eb;font-weight:700}.link-connector{font-size:11px;color:#7161a8;margin:0 0 -9px min(5vw,48px);font-weight:700}.relationship-options{margin-top:9px}.relationship-options select{width:100%}.card-actions .button{font-size:12px}.root-placeholder{border:2px dashed #b9d5d5;border-radius:10px;text-align:center;padding:45px 22px;background:#fff;color:var(--muted)}.root-placeholder strong{display:block;font-size:17px;color:var(--ink)}@media(max-width:1000px){.app-head{align-items:stretch;flex-direction:column}.builder-view{grid-template-columns:260px minmax(0,1fr)}.toolbar-strip{align-items:flex-start;flex-direction:column}}@media(max-width:720px){.builder-view{grid-template-columns:1fr}.palette{position:static;max-height:none}.field-list{max-height:190px;grid-template-columns:repeat(2,minmax(0,1fr))}.field-config{grid-template-columns:1fr 1fr}.filter-row{grid-template-columns:1fr 1fr}.filter-row input:nth-child(3){grid-column:1/-1}.app-head .app-actions{gap:6px}.link-card{margin-left:14px!important}}@media(max-width:440px){.field-list{grid-template-columns:1fr}.app-actions .connection{flex-basis:100%}.app-actions .button{flex:1;padding:7px 8px}.query-controls{gap:9px}.field-config{grid-template-columns:1fr}}</style>
+<!-- Microsoft-provided same-origin helper for sitemap web-resource pages. -->
+<script src="ClientGlobalContext.js.aspx"></script>
+</head>
+<body><aside role="status" class="beta-banner"><strong>Public Beta</strong> — This Dataverse tool is still under testing; verify results and only use write actions in a development environment.</aside>
+<div class="app">
+<header class="app-head">
+  <div class="brand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgMjAwIj48cmVjdCB3aWR0aD0iOTAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzEwMmU0MCIvPjx0ZXh0IHg9IjEyIiB5PSIxMzgiIGZvbnQtc2l6ZT0iMTE0IiBmb250LXdlaWdodD0iODAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZpbGw9IiNmZmYiPk1JR0hUT1JBPC90ZXh0Pjwvc3ZnPg==" alt="Mightora" width="126" height="30"><div class="brand-divider"></div><div><strong>FetchFlow Builder</strong><span>Dataverse query designer</span></div></div>
+  <div class="app-actions">
+    <span id="connection" class="connection" role="status" aria-live="polite">Checking Dataverse…</span>
+    <button id="btn-xml" type="button" class="button secondary">View FetchXML</button>
+    <button id="btn-visualise" type="button" class="button secondary">Visualise</button>
+    <button id="btn-run" type="button" class="button primary" disabled>Execute query <span aria-hidden="true">▶</span></button>
+  </div>
+</header>
+<div class="toolbar-strip"><div class="query-controls"><label for="query-top">Preview rows <input id="query-top" type="number" min="1" max="50" value="50" title="Maximum records returned" /></label><label class="check"><input id="query-distinct" type="checkbox"> Distinct</label><label for="query-sort">Sort <input id="query-sort" placeholder="Column logical name" autocomplete="off"></label><label for="query-order" class="visually-hidden">Sort direction</label><select id="query-order"><option value="asc">Ascending</option><option value="desc">Descending</option></select></div><div class="toolbar-note">Read-only execution · Current user's Dataverse permissions</div></div>
+<datalist id="all-tables"></datalist>
+<main>
+  <section id="builder-view" class="builder-view" aria-label="Visual query builder">
+    <aside class="palette panel">
+      <div class="panel-head"><div><span class="eyebrow">01 · DISCOVER</span><h2>Tables &amp; fields</h2></div><button type="button" class="icon-button" id="refresh-tables" title="Refresh tables" aria-label="Refresh tables">↻</button></div>
+      <label class="field-label" for="table-search">Search tables</label>
+      <input id="table-search" placeholder="Search by name…" type="search" autocomplete="off">
+      <label for="tables" class="visually-hidden">Available tables</label>
+      <select id="tables" size="6" aria-label="Dataverse tables"><option value="">Connecting to Dataverse…</option></select>
+      <button id="set-root" type="button" class="button secondary full" disabled>Use selected table as source</button>
+      <div class="palette-divider"></div>
+      <div class="palette-heading"><div><span class="eyebrow">FIELDS</span><h3 id="field-title">Select a table</h3></div><span id="field-count" class="counter"></span></div>
+      <label for="field-search" class="visually-hidden">Search fields</label><input id="field-search" type="search" placeholder="Find fields…" autocomplete="off">
+      <div id="field-list" class="field-list" role="list" aria-label="Drag fields onto a table card"></div>
+      <p class="help">Drag a field into a table's selected fields, or use <strong>+</strong> to add it. Click a table card to choose which table's fields are shown.</p>
+      <p id="metadata-status" class="status" role="status" aria-live="polite"></p>
+    </aside>
+    <section class="design-area" aria-label="Query design canvas">
+      <div class="design-heading"><div><span class="eyebrow">02 · DESIGN</span><h1>Build your FetchXML query</h1><p>Choose tables, drag in columns and add linked entities or filter conditions.</p></div><button class="button subtle" id="reset-query" type="button">Reset</button></div>
+      <div id="query-canvas" class="query-canvas"></div>
+      <div class="canvas-hint">Fields dropped onto a table card are added to its output. Linked entities can have their own columns and filters.</div>
+    </section>
+  </section>
+  <section id="xml-view" class="workspace panel" hidden aria-labelledby="xml-heading">
+    <div class="workspace-head"><div><span class="eyebrow">GENERATED XML</span><h2 id="xml-heading">FetchXML source</h2><p>Edit source directly if your query uses advanced FetchXML not supported by the visual designer.</p></div><div class="workspace-actions"><button id="copy-xml" class="button secondary" type="button">Copy</button><button id="download-xml" class="button secondary" type="button">Download</button><button id="edit-xml" class="button secondary" type="button">Edit XML</button><button id="back-design" class="button subtle" type="button">Back to builder</button></div></div>
+    <textarea id="xml-source" spellcheck="false" aria-label="FetchXML source" readonly></textarea>
+    <p id="xml-status" class="status" role="status" aria-live="polite">The XML updates automatically when you change the visual builder.</p>
+    <div class="xml-tools"><button id="import-xml" class="button secondary" type="button">Import into visual builder</button><span>Advanced XML is preserved if it cannot be represented visually.</span></div>
+  </section>
+  <section id="results-view" class="workspace panel" hidden aria-labelledby="results-heading">
+    <div class="workspace-head"><div><span class="eyebrow">LIVE DATAVERSE</span><h2 id="results-heading">Execution results</h2><p id="results-summary">Run FetchXML to see records returned from the current environment.</p></div><button id="results-back" class="button subtle" type="button">Back to builder</button></div>
+    <div id="results-status" role="status" aria-live="polite" class="status"></div>
+    <div class="results-scroll"><table id="results-table"><thead id="results-head"></thead><tbody id="results-body"></tbody></table></div>
+    <p class="help">Preview is limited to 50 records. Dataverse security roles and row-level permissions apply. No data is sent to Mightora.</p>
+  </section>
+  <section id="visual-view" class="workspace panel" hidden aria-labelledby="visual-heading">
+    <div class="workspace-head"><div><span class="eyebrow">QUERY EXPLORER</span><h2 id="visual-heading">Visualise your FetchXML</h2><p>Explore sources, joins, query stages and output lineage without executing a query.</p></div><button id="visual-back" class="button subtle" type="button">Back to builder</button></div>
+    <p id="visual-status" role="status" aria-live="polite" class="status"></p>
+    <div id="visual-diagrams" class="diagram-stack"><section><h3>Tables &amp; relationships</h3><div id="diagram-rel" class="diagram"></div></section><section><h3>Query flow</h3><div id="diagram-flow" class="diagram"></div></section><section><h3>Field lineage</h3><div id="diagram-fields" class="diagram"></div></section></div>
+  </section>
+</main>
+<footer class="app-footer"><span>FetchFlow by <a href="https://mightora.io" target="_blank" rel="noopener noreferrer">Mightora</a></span><span>Data stays within your Dataverse environment</span><span><a href="https://github.com/mightora/fetchflow.mightora.io" target="_blank" rel="noopener noreferrer">Open source</a> · <a href="https://github.com/mightora/fetchflow.mightora.io/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT licence</a></span></footer>
+</div>
+<script>/* FetchFlow: pure structural analysis. Does not execute queries. */
+(function (root) {
+  'use strict';
+  const MAX_INPUT = 250000;
+  const childElements = (parent, tag) => Array.from(parent?.children || parent?.childNodes || []).filter(n => n.nodeType === 1 && n.localName === tag);
+  const attr = (n, name, fallback = '') => n?.getAttribute(name) ?? fallback;
+  const bool = v => String(v).toLowerCase() === 'true';
+  const pretty = s => String(s || '').replaceAll('_', ' ').replace(/\b\w/g, c => c.toUpperCase());
+  const esc = s => String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&apos;'}[c]));
+  function parseFilter(node) {
+    return {
+      type: attr(node, 'type', 'and').toLowerCase() === 'or' ? 'or' : 'and',
+      items: Array.from(node.children || node.childNodes || []).filter(e => e.nodeType === 1 && ['filter','condition'].includes(e.localName)).map(e => e.localName === 'filter' ? { kind: 'group', ...parseFilter(e) } : {
+        kind: 'condition', attribute: attr(e, 'attribute'), entityName: attr(e,'entityname'), operator: attr(e,'operator','eq'),
+        value: attr(e, 'value'), valueOf: attr(e,'valueof'), values: childElements(e, 'value').map(v => v.textContent?.trim() || ''),
+        uitype: attr(e,'uitype'), uiName: attr(e,'uiname')
+      })
+    };
+  }
+  function parse(xml) {
+    if (typeof xml !== 'string' || !xml.trim()) throw new Error('Paste some FetchXML or choose an example to begin.');
+    if (xml.length > MAX_INPUT) throw new Error('FetchXML is larger than the 250 KB safety limit.');
+    if (/<!\s*(?:DOCTYPE|ENTITY)/i.test(xml)) throw new Error('DOCTYPE and ENTITY declarations are not supported for privacy and safety.');
+    const doc = new DOMParser().parseFromString(xml, 'application/xml');
+    const err = typeof doc.querySelector === 'function' ? doc.querySelector('parsererror') : doc.getElementsByTagName('parsererror')[0];
+    if (err) throw new Error('The XML is not well-formed: ' + (err.textContent || '').slice(0, 200).replace(/\s+/g, ' '));
+    const fetch = doc.documentElement;
+    if (fetch?.localName !== 'fetch') throw new Error('The root element must be <fetch>.');
+    const bases = childElements(fetch, 'entity');
+    if (bases.length !== 1) throw new Error('FetchXML needs exactly one root <entity>.');
+    const warnings = [];
+    const nodes = [];
+    let seq = 0;
+    function readEntity(el, parentId = null, depth = 0) {
+      if (depth > 18 || seq >= 80) throw new Error('The query exceeds the visualiser limit of 80 tables or 18 levels.');
+      const id = 'e' + seq++;
+      const name = attr(el, 'name');
+      if (!name) throw new Error('An <entity> or <link-entity> has no name.');
+      const kind = el.localName === 'entity' ? 'root' : 'linked';
+      const node = {
+        id, parentId, depth, kind, name, alias: attr(el, 'alias', name),
+        from: attr(el, 'from'), to: attr(el, 'to'), linkType: kind === 'root' ? '' : attr(el,'link-type','inner').toLowerCase(),
+        intersect: bool(attr(el,'intersect')), allAttributes: childElements(el,'all-attributes').length > 0,
+        attributes: childElements(el,'attribute').map(a => ({
+          name: attr(a,'name'), alias: attr(a,'alias'), aggregate: attr(a,'aggregate'), groupBy: bool(attr(a,'groupby')),
+          dateGrouping: attr(a,'dategrouping'), distinct: bool(attr(a,'distinct'))
+        })),
+        filters: childElements(el,'filter').map(parseFilter),
+        orders: childElements(el,'order').map(o => ({attribute:attr(o,'attribute'),alias:attr(o,'alias'),entityName:attr(o,'entityname'),descending:bool(attr(o,'descending'))})),
+        children: []
+      };
+      nodes.push(node);
+      if (kind === 'linked' && (!node.from || !node.to)) warnings.push(`The link to ${name} does not specify both from/to. Dataverse may infer a relationship; this visualiser cannot verify it.`);
+      if (!['','inner','outer','natural','any','not any','all','not all','exists','in','matchfirstrowusingcrossapply'].includes(node.linkType)) warnings.push(`${name} uses an unfamiliar link-type: ${node.linkType}.`);
+      if (['any','not any','all','not all','exists','in','matchfirstrowusingcrossapply'].includes(node.linkType)) warnings.push(`${name} uses ${node.linkType}, which may test related rows rather than return joined columns. Check the official FetchXML semantics.`);
+      if (node.allAttributes || (node.attributes.length === 0 && kind === 'root')) warnings.push(`${name} selects all available columns; explicit columns are usually easier to maintain.`);
+      for (const child of childElements(el,'link-entity')) node.children.push(readEntity(child, id, depth + 1).id);
+      return node;
+    }
+    const main = readEntity(bases[0]);
+    const options = Object.fromEntries(['top','count','page','distinct','aggregate','returntotalrecordcount','no-lock','mapping','latematerialize'].map(k => [k,attr(fetch,k)]));
+    if (bool(options.aggregate) && bool(options.distinct)) warnings.push('Aggregate and distinct are both enabled: review the intended result carefully.');
+    if (options.top && options.count) warnings.push('Both top and count are set; verify that this paging and limiting combination is supported.');
+    if (nodes.some(n => n.filters.some(f => findCondition(f, c => c.entityName)))) warnings.push('Conditions with entityname may apply after a join, which differs from filters inside a link-entity.');
+    return {nodes, rootId:main.id, options, warnings, xml};
+  }
+  function findCondition(group, test) { return group.items.some(i => i.kind === 'group' ? findCondition(i,test) : test(i)); }
+  function filterText(group) {
+    const parts = group.items.map(item => item.kind === 'group' ? '(' + filterText(item) + ')' : conditionText(item));
+    return parts.join(` ${group.type.toUpperCase()} `) || '(empty filter)';
+  }
+  function conditionText(c) {
+    let value = c.valueOf ? `column ${c.valueOf}` : c.values.length ? `[${c.values.join(', ')}]` : c.value !== '' ? `“${c.value}”` : '';
+    const op = {'eq':'equals','ne':'does not equal','gt':'greater than','ge':'at least','lt':'less than','le':'at most','like':'matches','not-like':'does not match','null':'is empty','not-null':'is not empty','in':'is in','not-in':'is not in','between':'is between','on-or-after':'on or after','last-x-days':'in last N days','eq-userid':'equals current user','eq-userteams':'belongs to user teams'}[c.operator] || c.operator;
+    return `${c.entityName ? c.entityName + '.' : ''}${c.attribute} ${op}${value ? ' ' + value : ''}`;
+  }
+  function outputColumns(model) {
+    const items = [];
+    model.nodes.forEach(n => {
+      if(n.allAttributes || (n.attributes.length === 0 && n.kind === 'root')) items.push({source:n.alias, field:'*', label:`${n.alias}.*`, action:'all columns'});
+      n.attributes.forEach(a => items.push({source:n.alias, field:a.name, label:a.alias || (n.kind === 'root' ? a.name : `${n.alias}.${a.name}`), action:a.aggregate || (a.groupBy ? 'group by' : 'selected')}));
+    });
+    return items;
+  }
+  function steps(model) {
+    const result = [{title:`Start with ${model.nodes[0].name}`,detail:'Read rows from the primary Dataverse table.',kind:'source'}];
+    model.nodes.slice(1).forEach(n => {
+      const desc = `${n.linkType || 'inner'} link${n.from && n.to ? `: ${n.parentId ? (model.nodes.find(p=>p.id===n.parentId)?.alias || '') : ''}.${n.to} → ${n.alias}.${n.from}` : ': relationship not fully specified'}`;
+      result.push({title:`Link ${n.name}`,detail:desc,kind:'join'});
+    });
+    model.nodes.forEach(n => n.filters.forEach(f => result.push({title:`Filter ${n.alias}`,detail:filterText(f)+(n.kind==='linked' ? ' · a linked-table filter may affect the join' : ''),kind:'filter'})));
+    if(model.nodes.some(n=>n.attributes.some(a=>a.aggregate||a.groupBy)) || model.options.aggregate === 'true') result.push({title:'Group & calculate',detail:'Apply the requested groupings and aggregate expressions.',kind:'aggregate'});
+    model.nodes.forEach(n => n.orders.forEach(o=>result.push({title:`Sort by ${o.attribute || o.alias}`,detail:`${o.descending ? 'Descending' : 'Ascending'}${o.entityName ? ' on ' + o.entityName : ''}`,kind:'sort'})));
+    if(model.options.distinct === 'true') result.push({title:'Remove duplicate results',detail:'Distinct is enabled.',kind:'distinct'});
+    if(model.options.top || model.options.count || model.options.page) result.push({title:'Limit or page',detail:[model.options.top && `top ${model.options.top}`,model.options.count && `page size ${model.options.count}`,model.options.page && `page ${model.options.page}`].filter(Boolean).join(' · '),kind:'limit'});
+    result.push({title:'Return selected columns',detail:`${outputColumns(model).length} explicitly represented output field${outputColumns(model).length === 1 ? '' : 's'}${model.nodes.some(n=>n.allAttributes) ? ' including wildcard selection' : ''}.`,kind:'output'});
+    return result;
+  }
+  function summary(model) {
+    const root = model.nodes[0]; const joins = model.nodes.slice(1); const cols = outputColumns(model);
+    const phrases = [`The query starts from the Dataverse ${root.name} table.`];
+    joins.forEach(n=>phrases.push(`It connects to ${n.name} using a ${n.linkType || 'inner'} link${n.from && n.to ? `, matching ${model.nodes.find(p=>p.id===n.parentId)?.alias || 'parent'}.${n.to} with ${n.alias}.${n.from}` : ''}.`));
+    const filters = model.nodes.flatMap(n=>n.filters.map(f=>`On ${n.alias}, keep rows where ${filterText(f)}.`));
+    phrases.push(...filters);
+    if(model.options.aggregate === 'true') phrases.push('This is an aggregate query, so output may be summarised rather than one row per source record.');
+    if(model.options.distinct === 'true') phrases.push('Distinct is enabled to remove duplicate result combinations.');
+    if(model.options.top) phrases.push(`The result is limited to at most ${model.options.top} rows.`);
+    phrases.push(`The query describes ${cols.length} output fields${cols.some(c=>c.field==='*') ? ' (including wildcard columns)' : ''}.`);
+    phrases.push('This is a structural interpretation, not a Dataverse execution plan. Record counts, permissions, relationships and performance cannot be verified without a connected environment.');
+    return phrases;
+  }
+  function mermaid(model) {
+    const lines = ['flowchart LR'];
+    for(const n of model.nodes){lines.push(`  ${n.id}["${(n.name + (n.alias!==n.name ? ' as ' + n.alias : '')).replace(/["\\]/g,'')}"]`);if(n.parentId)lines.push(`  ${n.parentId} -->|"${(n.linkType + ' ' + n.to + ' = ' + n.from).replace(/["\\]/g,'')}"| ${n.id}`)}
+    return lines.join('\n');
+  }
+  const api = {parse,steps,summary,filterText,conditionText,outputColumns,mermaid,pretty,esc};
+  if(typeof module!=='undefined' && module.exports) module.exports=api;
+  root.FetchXMLModel=api;
+})(typeof window !== 'undefined' ? window : globalThis);
+(function (root) {
+  'use strict';
+  const X = root.FetchXMLModel;
+  const NS = 'http://www.w3.org/2000/svg';
+  function el(name, attrs = {}, text) {
+    const node = document.createElementNS(NS, name);
+    Object.entries(attrs).forEach(([k,v])=>node.setAttribute(k,String(v)));
+    if (text !== undefined) node.textContent=String(text);
+    return node;
+  }
+  const clr = {ink:'#173244',muted:'#526b7b',primary:'#128b99',accent:'#ef9c40',bg:'#ffffff',line:'#b6c9d1',soft:'#eaf6f6',purple:'#6954a2'};
+  function svgBase(w,h,label) {
+    const s=el('svg',{xmlns:NS,viewBox:`0 0 ${w} ${h}`,width:w,height:h,role:'img','aria-label':label,'font-family':'Arial, Helvetica, sans-serif'});
+    s.append(el('title',{},label),el('rect',{width:w,height:h,fill:clr.bg,rx:14}));
+    return s;
+  }
+  function text(svg,x,y,value,{size=15,color=clr.ink,weight=400,max=38}={}) {
+    let str=String(value||'');if(str.length>max)str=str.slice(0,max-1)+'…';
+    svg.append(el('text',{x,y,fill:color,'font-size':size,'font-weight':weight},str));
+  }
+  function pill(svg,x,y,label,color=clr.primary) {
+    const width=Math.min(156,Math.max(80,label.length*8+18));
+    svg.append(el('rect',{x,y,width,height:23,rx:11,fill:color}));
+    text(svg,x+9,y+16,label,{size:12,color:'#ffffff',weight:700,max:18});
+  }
+  function relationship(model){
+    const byDepth = new Map();
+    model.nodes.forEach(n => {if(!byDepth.has(n.depth))byDepth.set(n.depth,[]);byDepth.get(n.depth).push(n);});
+    const maxDepth=Math.max(...model.nodes.map(n=>n.depth));const maxRows=Math.max(...Array.from(byDepth.values()).map(a=>a.length));
+    const w=Math.max(790,(maxDepth+1)*315+64),h=Math.max(300,maxRows*180+90);
+    const svg=svgBase(w,h,'Dataverse source tables and relationship links');const positions=new Map();
+    for(const [depth,nodes] of byDepth){ const interval=h/(nodes.length+1);nodes.forEach((n,i)=>positions.set(n.id,{x:35+depth*315,y:interval*(i+1)-70})); }
+    for(const n of model.nodes.filter(n=>n.parentId)){
+      const a=positions.get(n.parentId),b=positions.get(n.id);const ay=a.y+67,by=b.y+67;
+      svg.append(el('path',{d:`M ${a.x+255} ${ay} C ${a.x+286} ${ay}, ${b.x-33} ${by}, ${b.x} ${by}`,stroke:clr.primary,'stroke-width':2.5,fill:'none'}));
+      svg.append(el('circle',{cx:b.x,cy:by,r:5,fill:clr.accent}));
+      text(svg,(a.x+b.x+255)/2-18,(ay+by)/2-11,n.linkType,{size:12,color:clr.purple,weight:700,max:10});
+    }
+    for(const n of model.nodes){
+      const {x,y}=positions.get(n.id);
+      svg.append(el('rect',{x,y,width:255,height:134,rx:14,fill:n.kind==='root'?clr.soft:'#f5f7fa',stroke:n.kind==='root'?clr.primary:'#c3d2db','stroke-width':2}));
+      text(svg,x+14,y+25,n.name,{size:20,weight:700,max:20});
+      text(svg,x+14,y+46,`alias: ${n.alias}`,{size:13,color:clr.muted,max:26});
+      if(n.kind==='root')pill(svg,x+14,y+59,'PRIMARY SOURCE');else pill(svg,x+14,y+59,n.linkType.toUpperCase()+' JOIN',clr.purple);
+      text(svg,x+14,y+108,`${n.attributes.length} selected · ${n.filters.length} filter groups`,{size:12,color:clr.muted,max:32});
+      if(n.kind==='linked')text(svg,x+14,y+125,`${n.to||'?'} = ${n.from||'?'}`,{size:11,color:clr.ink,max:33});
+    }
+    return svg;
+  }
+  function pipeline(model){
+    const steps=X.steps(model);const w=920,h=Math.max(290,steps.length*83+30);const svg=svgBase(w,h,'How FetchXML shapes the result');
+    const tones={source:clr.primary,join:clr.purple,filter:'#cc7a32',sort:'#5579a9',aggregate:'#5579a9',distinct:'#5579a9',limit:'#5579a9',output:clr.primary};
+    steps.forEach((s,i)=>{const y=25+i*83;
+      svg.append(el('rect',{x:60,y,width:800,height:65,rx:12,fill:i%2===0?'#f4f9fa':'#f7f8fb',stroke:'#d4e0e5'}));
+      svg.append(el('circle',{cx:90,cy:y+32,r:17,fill:tones[s.kind]||clr.primary}));
+      text(svg,84,y+38,String(i+1),{size:16,weight:700,color:'#fff',max:3});
+      text(svg,125,y+25,s.title,{size:18,weight:700,max:66});
+      text(svg,125,y+46,s.detail,{size:13,color:clr.muted,max:99});
+      if(i!==steps.length-1)svg.append(el('path',{d:`M 90 ${y+65} V ${y+78} M 84 ${y+72} L 90 ${y+78} L 96 ${y+72}`,stroke:clr.primary,'stroke-width':2,fill:'none'}));
+    });return svg;
+  }
+  function lineage(model){
+    const fields=X.outputColumns(model);const items=fields.length ? fields.slice(0,80) : [{label:'No selected columns',source:'?',field:'?',action:'unknown'}];
+    const columns=2,rows=Math.ceil(items.length/columns);const w=960,h=Math.max(265,rows*99+95);const svg=svgBase(w,h,'Output column lineage and source tables');
+    text(svg,34,37,'SOURCE COLUMN',{size:13,color:clr.muted,weight:700});text(svg,305,37,'OUTPUT FIELD',{size:13,color:clr.muted,weight:700});
+    items.forEach((f,i)=>{const col=i%2,row=Math.floor(i/2),x=32+col*460,y=54+row*99;
+      svg.append(el('rect',{x,y,width:440,height:78,rx:12,fill:'#f6f9fb',stroke:'#cbdce3'}));
+      text(svg,x+13,y+25,`${f.source}.${f.field}`,{size:13,color:clr.muted,max:26});
+      svg.append(el('path',{d:`M ${x+190} ${y+39} H ${x+215} l -7 -6 m 7 6 l -7 6`,stroke:clr.primary,'stroke-width':2,fill:'none'}));
+      text(svg,x+229,y+27,f.label,{size:16,weight:700,max:22});
+      text(svg,x+229,y+53,f.action,{size:13,color:clr.purple,max:26});
+    });return svg;
+  }
+  root.FetchXMLDiagrams={relationship,pipeline,lineage};
+})(window);
+(function(root){
+'use strict';
+const nameRx=/^[A-Za-z_][A-Za-z0-9_]{0,127}$/;
+const operators=['eq','ne','gt','ge','lt','le','like','not-like','begins-with','not-begin-with','ends-with','not-end-with','null','not-null','in','not-in','between','today','yesterday','tomorrow','last-x-days','next-x-days','eq-userid'];
+const noValue=new Set(['null','not-null','today','yesterday','tomorrow','eq-userid']);
+const multiValue=new Set(['in','not-in','between']);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
+const check=(s,label)=>{if(!nameRx.test(s||''))throw Error(label+' must be a valid Dataverse logical name.');return s;};
+function serialize(state){
+ if(!state||!Array.isArray(state.nodes))throw Error('No query is available.');
+ const nodes=state.nodes,base=nodes.find(n=>n.id==='root');
+ if(!base)throw Error('Select a source table first.');
+ if(nodes.length>15)throw Error('Maximum 14 linked tables.');
+ const map=new Map(nodes.map(n=>[n.id,n]));
+ if(map.size!==nodes.length)throw Error('Duplicate table ID.');
+ const seen=new Set();
+ let attrCount=0;
+ function render(n,depth){
+  if(depth>8)throw Error('Maximum eight relationship levels.');
+  if(seen.has(n.id))throw Error('Cyclic table relationship detected.');
+  seen.add(n.id);
+  const ind='  '.repeat(depth),tbl=check(n.table,'Table');
+  if(n.id!=='root'){check(n.from,'Linked from column');check(n.to,'Parent to column');if(n.alias)check(n.alias,'Alias');}
+  const type=n.linkType==='outer'?'outer':'inner';
+  const tag=n.id==='root'?'entity':'link-entity';
+  const at=n.id==='root'?'':` from="${esc(n.from)}" to="${esc(n.to)}" link-type="${type}"${n.alias?' alias="'+esc(n.alias)+'"':''}`;
+  const lines=[`${ind}<${tag} name="${esc(tbl)}"${at}>`];
+  const unique=new Set(n.fields||[]);
+  if(unique.size!==(n.fields||[]).length)throw Error('Duplicate selected column in '+tbl+'.');
+  for(const f of n.fields||[]){check(f,'Column');if(++attrCount>100)throw Error('Select no more than 100 fields across the query.');lines.push(`${ind}  <attribute name="${esc(f)}" />`);}
+  const conditions=n.filters||[];
+  if(conditions.length>25)throw Error('At most 25 filters per table.');
+  if(conditions.length){
+   lines.push(`${ind}  <filter type="${n.filterType==='or'?'or':'and'}">`);
+   for(const c of conditions){
+    check(c.attribute,'Filter column');
+    if(!operators.includes(c.operator))throw Error('Unsupported condition operator.');
+    let condition=`${ind}    <condition attribute="${esc(c.attribute)}" operator="${esc(c.operator)}"`;
+    if(noValue.has(c.operator))lines.push(condition+' />');
+    else if(multiValue.has(c.operator)){
+      const vals=String(c.value||'').split(',').map(v=>v.trim()).filter(Boolean);
+      if(!vals.length||vals.length>40||(c.operator==='between'&&vals.length!==2))throw Error(c.operator+' requires '+(c.operator==='between'?'two':'one or more')+' values.');
+      lines.push(condition+'>');
+      vals.forEach(v=>lines.push(`${ind}      <value>${esc(v)}</value>`));
+      lines.push(`${ind}    </condition>`);
+    }else{
+      if(String(c.value??'').trim()==='')throw Error('Enter a value for '+c.attribute+'.');
+      lines.push(condition+` value="${esc(String(c.value).trim())}" />`);
+    }
+   }
+   lines.push(`${ind}  </filter>`);
+  }
+  if(n.id==='root'&&state.sort){check(state.sort,'Sort column');lines.push(`${ind}  <order attribute="${esc(state.sort)}"${state.descending?' descending="true"':''} />`);}
+  for(const link of nodes.filter(child=>child.parent===n.id))lines.push(...render(link,depth+1));
+  lines.push(`${ind}</${tag}>`);
+  return lines;
+ }
+ const top=Number(state.top||50);
+ if(!Number.isInteger(top)||top<1||top>50)throw Error('Preview row limit must be 1 to 50.');
+ const xml=[`<fetch count="${top}"${state.distinct?' distinct="true"':''}>`,...render(base,1),'</fetch>'].join('\n');
+ if(seen.size!==nodes.length)throw Error('An unconnected linked table was found.');
+ return xml;
+}
+function importXML(xml){
+ if(typeof DOMParser==='undefined')throw Error('Import requires a browser.');
+ if(!xml||xml.length>250000||/<!\s*(?:DOCTYPE|ENTITY)/i.test(xml))throw Error('Invalid or oversized XML.');
+ const doc=new DOMParser().parseFromString(xml,'application/xml');
+ if(doc.querySelector('parsererror')||doc.documentElement.localName!=='fetch')throw Error('Invalid FetchXML.');
+ const fetch=doc.documentElement;
+ const direct=(e,tag)=>Array.from(e.children).filter(c=>c.localName===tag);
+ const supported=(el,keys)=>Array.from(el.attributes).every(a=>keys.includes(a.name));
+ if(!supported(fetch,['count','top','distinct','page','mapping','version','output-format'])||direct(fetch,'entity').length!==1)throw Error('Advanced FetchXML options require source mode.');
+ let serial=1, nodes=[];
+ function read(el,parent=null,level=0){
+  if(level>8||nodes.length>=15)throw Error('Too many linked entities.');
+  const isRoot=!parent;
+  if(!supported(el,isRoot?['name']:['name','from','to','link-type','alias']))throw Error('Advanced entity settings require source mode.');
+  if(Array.from(el.children).some(c=>!['attribute','filter','order','link-entity'].includes(c.localName)))throw Error('Advanced FetchXML constructs require source mode.');
+  const filters=direct(el,'filter');
+  if(filters.length>1||filters.some(f=>!supported(f,['type'])||Array.from(f.children).some(c=>c.localName!=='condition')))throw Error('Nested or advanced filters require source mode.');
+  const f=filters[0];
+  const cond=f?direct(f,'condition').map(c=>{
+    if(!supported(c,['attribute','operator','value'])||!operators.includes(c.getAttribute('operator')||''))throw Error('Advanced conditions require source mode.');
+    const vals=direct(c,'value');
+    if(Array.from(c.children).some(child=>child.localName!=='value'))throw Error('Unsupported condition child.');
+    return {attribute:c.getAttribute('attribute')||'',operator:c.getAttribute('operator')||'eq',value:vals.length?vals.map(v=>v.textContent).join(', '):c.getAttribute('value')||''};
+  }):[];
+  const attrs=direct(el,'attribute');
+  if(attrs.some(a=>!supported(a,['name'])))throw Error('Aliased or aggregate fields require source mode.');
+  if(!isRoot&&direct(el,'order').length)throw Error('Linked sort requires source mode.');
+  const id=isRoot?'root':'link'+serial++;
+  nodes.push({id,parent,table:el.getAttribute('name')||'',fields:attrs.map(a=>a.getAttribute('name')),from:el.getAttribute('from')||'',to:el.getAttribute('to')||'',linkType:el.getAttribute('link-type')||'inner',alias:el.getAttribute('alias')||'',filterType:f?.getAttribute('type')||'and',filters:cond});
+  direct(el,'link-entity').forEach(l=>read(l,id,level+1));
+ }
+ read(direct(fetch,'entity')[0]);
+ const orders=direct(direct(fetch,'entity')[0],'order');
+ if(orders.length>1||orders.some(o=>!supported(o,['attribute','descending'])))throw Error('Complex sorting requires source mode.');
+ const state={nodes,distinct:fetch.getAttribute('distinct')==='true',top:Number(fetch.getAttribute('count')||fetch.getAttribute('top')||50),sort:orders[0]?.getAttribute('attribute')||'',descending:orders[0]?.getAttribute('descending')==='true'};
+ // Ensure we never silently drop attributes or advanced content on import.
+ serialize(state);
+ return state;
+}
+function forPreview(xml,count=50){
+ if(typeof DOMParser==='undefined')throw Error('FetchXML requires browser DOM support.');
+ if(typeof xml!=='string'||xml.length>250000||/<!\s*(?:DOCTYPE|ENTITY)/i.test(xml))throw Error('Invalid or oversized FetchXML.');
+ const doc=new DOMParser().parseFromString(xml,'application/xml');
+ if(doc.querySelector('parsererror')||doc.documentElement.localName!=='fetch')throw Error('Enter valid FetchXML.');
+ const e=Array.from(doc.documentElement.children).filter(c=>c.localName==='entity');
+ if(e.length!==1)throw Error('Exactly one root entity is required.');
+ const table=check(e[0].getAttribute('name'),'Root table');
+ const f=doc.documentElement;
+ const existingTop=f.getAttribute('top');
+ if(existingTop!==null){
+  const n=Number(existingTop);
+  if(!Number.isInteger(n)||n<1)throw Error('Invalid top value.');
+  f.setAttribute('top',String(Math.min(n,count,50)));
+ }else{
+  f.setAttribute('count',String(Math.min(count,50)));
+  f.setAttribute('page','1');
+  f.removeAttribute('paging-cookie');
+ }
+ return {table,xml:new XMLSerializer().serializeToString(doc)};
+}
+const api={serialize,importXML,forPreview,operators,noValue,multiValue};
+if(typeof module!=='undefined'&&module.exports)module.exports=api;
+root.FetchFlowQueryDesignerModel=api;
+})(typeof window!=='undefined'?window:globalThis);
+(function(root){
+'use strict';
+const M=root.FetchFlowQueryDesignerModel, X=root.FetchXMLModel, Diagrams=root.FetchXMLDiagrams;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const labels=o=>o?.UserLocalizedLabel?.Label||o?.LocalizedLabels?.[0]?.Label||'';
+const nameRx=/^[A-Za-z_][A-Za-z0-9_]{0,127}$/;
+const maxRecords=50;
+let xrm=null,origin='',tableList=[],activeId='root',nextId=1,manualXML=null;
+let nodes=[{id:'root',parent:null,table:'account',fields:[],filters:[],filterType:'and',linkType:'inner',from:'',to:'',alias:''}];
+let attributes=new Map(),relationships=new Map(),loadingSchema=new Map(),resultRun=0;
+const state=()=>({nodes,top:Number($('query-top').value)||50,sort:$('query-sort').value.trim(),distinct:$('query-distinct').checked,descending:$('query-order').value==='desc'});
+const node=id=>nodes.find(n=>n.id===id);
+const selected=()=>node(activeId)||nodes[0];
+const updateStatus=(id,msg,bad=false)=>{const el=$(id);if(el){el.textContent=msg;el.classList.toggle('error',bad);}};
+const option=(value,label)=>{const o=document.createElement('option');o.value=value;o.textContent=label;return o;};
+function context(){
+ // Sitemap web-resource pages do not expose Xrm.WebApi or parent.Xrm.
+ // Use Microsoft's supported ClientGlobalContext.js.aspx helper instead.
+ try{
+  const gc=typeof root.GetGlobalContext==='function'?root.GetGlobalContext():null;
+  if(!gc||typeof gc.getClientUrl!=='function')return null;
+  const url=new URL(gc.getClientUrl());
+  if(url.origin!==root.location.origin||url.protocol!=='https:'||
+     !/(?:^|\\/)webresources\\//i.test(decodeURIComponent(root.location.pathname)))return null;
+  return {origin:url.origin};
+ }catch{return null;}
+}
+async function apiGet(path){
+ if(!origin)throw Error('Open this web resource in your model-driven app.');
+ const url=new URL('/api/data/v9.2/'+path,origin);
+ if(url.origin!==root.location.origin)throw Error('Cross-origin metadata requests are blocked.');
+ const res=await fetch(url.href,{credentials:'same-origin',headers:{'Accept':'application/json','OData-Version':'4.0','OData-MaxVersion':'4.0'}});
+ if(!res.ok){
+  let message='Metadata request failed ('+res.status+').';
+  try{const data=await res.json();message=data.error?.message||message;}catch{}
+  throw Error(message);
+ }
+ return res.json();
+}
+async function loadTables(){
+ if(!origin)return;
+ updateStatus('metadata-status','Loading Dataverse table definitions…');
+ try{
+  let url='EntityDefinitions?$select=LogicalName,DisplayName,EntitySetName,IsPrivate',items=[];
+  // Follow continuation links only on the current Dataverse origin.
+  for(let page=0;page<10&&url;page++){
+   const data=await apiGet(url);
+   items=items.concat(data.value||[]);
+   const next=data['@odata.nextLink'];
+   if(next){const u=new URL(next,origin);if(u.origin!==origin||!u.pathname.includes('/api/data/v9.2/'))throw Error('Unexpected metadata continuation origin.');url=u.pathname.split('/api/data/v9.2/')[1]+u.search;}
+   else url='';
+  }
+  tableList=items.filter(t=>nameRx.test(t.LogicalName||'')&&!t.IsPrivate).map(t=>({name:t.LogicalName,label:labels(t.DisplayName)||t.LogicalName,entitySet:t.EntitySetName})).sort((a,b)=>a.label.localeCompare(b.label));
+  $('all-tables').replaceChildren(...tableList.map(t=>option(t.name,t.label)));
+  showTables();
+  updateStatus('metadata-status',tableList.length+' tables available. Pick one to start.');
+  if(tableList.some(t=>t.name==='account')){await loadFields('account');renderFields();}
+ }catch(e){updateStatus('metadata-status',e.message,true);}
+}
+function showTables(){
+ const term=$('table-search').value.toLowerCase().trim(),picker=$('tables'),old=picker.value;
+ const matches=tableList.filter(t=>(t.label+' '+t.name).toLowerCase().includes(term)).slice(0,400);
+ picker.replaceChildren(...matches.map(t=>option(t.name,t.label+' · '+t.name)));
+ if(matches.some(t=>t.name===old))picker.value=old;
+ else if(matches.some(t=>t.name===selected().table))picker.value=selected().table;
+ $('set-root').disabled=!picker.value;
+}
+async function loadFields(table){
+ if(!nameRx.test(table))return [];
+ if(attributes.has(table))return attributes.get(table);
+ if(loadingSchema.has(table))return loadingSchema.get(table);
+ const pending=(async()=>{
+  const data=await apiGet("EntityDefinitions(LogicalName='"+table+"')/Attributes?$select=LogicalName,DisplayName,AttributeType,IsValidForRead");
+  const fields=(data.value||[]).filter(v=>nameRx.test(v.LogicalName||'')&&v.IsValidForRead!==false)
+   .map(v=>({name:v.LogicalName,label:labels(v.DisplayName)||v.LogicalName,type:v.AttributeType||''})).sort((a,b)=>a.label.localeCompare(b.label));
+  attributes.set(table,fields);return fields;
+ })();
+ loadingSchema.set(table,pending);
+ try{return await pending;}finally{loadingSchema.delete(table);}
+}
+async function loadRelations(table){
+ if(!nameRx.test(table)||!origin)return [];
+ if(relationships.has(table))return relationships.get(table);
+ const paths=['OneToManyRelationships','ManyToOneRelationships'];
+ const rs=await Promise.allSettled(paths.map(segment=>apiGet("EntityDefinitions(LogicalName='"+table+"')/"+segment+'?$select=SchemaName,ReferencingEntity,ReferencedEntity,ReferencingAttribute,ReferencedAttribute')));
+ let all=[];
+ rs.forEach((r,i)=>{
+  if(r.status!=='fulfilled')return;
+  (r.value.value||[]).forEach(item=>{
+   const linked=i===0?item.ReferencingEntity:item.ReferencedEntity;
+   const from=i===0?item.ReferencingAttribute:item.ReferencedAttribute;
+   const to=i===0?item.ReferencedAttribute:item.ReferencingAttribute;
+   if([linked,from,to].every(x=>nameRx.test(x||''))&&!all.some(a=>a.table===linked&&a.from===from&&a.to===to))
+     all.push({table:linked,from,to,name:item.SchemaName||linked});
+  });
+ });
+ relationships.set(table,all.slice(0,1000));return relationships.get(table);
+}
+async function selectContext(id){
+ if(!node(id))return;
+ activeId=id;renderCanvas();renderFields();
+ if(!origin)return;
+ try{
+  await loadFields(selected().table);
+  if(activeId===id)renderFields();
+ }catch(e){updateStatus('metadata-status',e.message,true);}
+}
+function renderFields(){
+ const n=selected(),fields=attributes.get(n.table)||[],term=$('field-search').value.toLowerCase(),list=$('field-list');
+ $('field-title').textContent=n.table||'Select a table';$('field-count').textContent=fields.length?fields.length+' fields':'';
+ const found=fields.filter(f=>(f.label+' '+f.name).toLowerCase().includes(term)).slice(0,250);
+ list.replaceChildren();
+ if(!found.length){const p=document.createElement('p');p.className='help';p.textContent=origin?'No fields loaded or matching. Select a table and try again.':'Connect to Dataverse to drag available fields.';list.append(p);}
+ found.forEach(f=>{
+  const row=document.createElement('div');row.className='field-row';row.draggable=true;row.dataset.field=f.name;row.dataset.table=n.table;row.setAttribute('role','listitem');row.title='Drag into the query or click +';
+  const name=document.createElement('div');name.className='field-name';
+  const label=document.createElement('strong');label.textContent=f.label;const technical=document.createElement('small');technical.textContent=f.name+(f.type?' · '+f.type:'');
+  name.append(label,technical);
+  const add=document.createElement('button');add.className='field-add';add.type='button';add.dataset.field=f.name;add.setAttribute('aria-label','Add '+f.label+' to '+n.table);add.textContent='+';
+  row.append(name,add);list.append(row);
+ });
+}
+function fieldOptions(n,value){
+ const fields=attributes.get(n.table)||[];
+ const out=fields.map(f=>'<option value="'+esc(f.name)+'">'+esc(f.label)+' · '+esc(f.name)+'</option>').join('');
+ return '<input class="filter-column" list="cols-'+esc(n.id)+'" data-prop="filter-attribute" value="'+esc(value)+'" placeholder="Column name" aria-label="Filter column"><datalist id="cols-'+esc(n.id)+'">'+out+'</datalist>';
+}
+const opOptions=current=>M.operators.map(op=>'<option value="'+op+'"'+(current===op?' selected':'')+'>'+op+'</option>').join('');
+function renderCard(n){
+ const rootNode=n.id==='root',isActive=n.id===activeId,links=nodes.filter(e=>e.parent===n.id).length;
+ const outer=document.createElement('article');outer.className='query-card'+(isActive?' selected':'')+(rootNode?'':' link-card');outer.dataset.node=n.id;
+ const choices=(relationships.get(node(n.parent)?.table)||[]).filter(r=>r.table===n.table);
+ const relOpts=choices.length?choices.map((r,i)=>'<option value="'+i+'">'+esc(r.name)+' ('+esc(r.from)+' → '+esc(r.to)+')</option>').join(''):'';
+ outer.innerHTML=`<div class="card-head"><div><span class="card-title">${rootNode?'Primary table':'Linked entity'} · ${esc(n.table)}</span><span class="card-subtitle">${rootNode?'Root data source':esc(node(n.parent)?.table||'')+' → '+esc(n.table)} · ${n.fields.length} selected fields · ${n.filters.length} filters</span></div><div class="card-actions"><button type="button" class="button mini" data-action="select">Show fields</button>${rootNode?'':'<button type="button" class="button mini" data-action="remove-node">Remove link</button>'}</div></div>
+ <div class="card-body">
+ ${rootNode?'':`<div class="field-config">
+ <label>Linked table <input data-prop="table" list="all-tables" value="${esc(n.table)}" aria-label="Linked table logical name"></label>
+ <label>From (linked column) <input data-prop="from" value="${esc(n.from)}" aria-label="Linked from column"></label>
+ <label>To (parent column) <input data-prop="to" value="${esc(n.to)}" aria-label="Parent to column"></label>
+ <label>Join <select data-prop="linkType"><option value="inner" ${n.linkType==='inner'?'selected':''}>Inner</option><option value="outer" ${n.linkType==='outer'?'selected':''}>Outer</option></select></label>
+ <label>Alias <input data-prop="alias" value="${esc(n.alias)}" placeholder="Optional"></label>
+ </div>
+ ${relOpts?'<div class="relationship-options"><label class="field-label">Suggested relationships<select data-action="relationship"><option value="">Choose a relationship…</option>'+relOpts+'</select></label></div>':''}`}
+ <div class="card-group"><h3>Selected fields</h3><div class="field-drop" data-drop="${esc(n.id)}" tabindex="0" aria-label="Drop fields into ${esc(n.table)}">
+ ${n.fields.length?n.fields.map(f=>'<span class="chip">'+esc(f)+' <button type="button" data-action="remove-field" data-field="'+esc(f)+'" aria-label="Remove '+esc(f)+'">×</button></span>').join(''):'<span class="empty">Drag fields here, or choose <strong>Show fields</strong> then click +</span>'}
+ </div></div>
+ <div class="card-group"><div class="filter-bar"><h3>Filter conditions</h3><label>Match <select data-prop="filterType"><option value="and" ${n.filterType!=='or'?'selected':''}>ALL (AND)</option><option value="or" ${n.filterType==='or'?'selected':''}>ANY (OR)</option></select></label></div>
+ <div class="filter-rows">${n.filters.map((c,i)=>'<div class="filter-row" data-index="'+i+'">'+fieldOptions(n,c.attribute)+'<select data-prop="filter-operator" aria-label="Filter operator">'+opOptions(c.operator)+'</select><input data-prop="filter-value" aria-label="Filter value" value="'+esc(c.value)+'" placeholder="Filter value" '+(M.noValue.has(c.operator)?'disabled':'')+'><button class="remove" type="button" data-action="remove-filter" aria-label="Remove condition">×</button></div>').join('')}</div>
+ <div class="link-add"><button type="button" class="button mini" data-action="add-filter">+ Add condition</button><button type="button" class="button mini" data-action="add-link">+ Linked entity</button>${links?'<span class="help">'+links+' child links</span>':''}</div></div>
+ </div>`;
+ return outer;
+}
+function renderCanvas(){
+ const canvas=$('query-canvas');canvas.replaceChildren();
+ const rootNode=node('root');
+ if(!rootNode){canvas.innerHTML='<div class="root-placeholder"><strong>Choose a table</strong>Search the tables on the left to begin.</div>';return;}
+ // Query nodes are stored in parent-before-child order, supporting nesting.
+ const visit=(id,level=0)=>{
+  const n=node(id);if(!n||level>8)return;
+  if(id!=='root'){const connector=document.createElement('p');connector.className='link-connector';connector.textContent='↳ '+n.linkType.toUpperCase()+' JOIN';canvas.append(connector);}
+  canvas.append(renderCard(n));
+  nodes.filter(item=>item.parent===id).forEach(c=>visit(c.id,level+1));
+ };
+ visit('root');
+}
+function show(view){
+ ['builder','xml','results','visual'].forEach(key=>$(key==='builder'?'builder-view':key+'-view').hidden=key!==view);
+ if(view==='xml'){if(!manualXML)updateXML();$('xml-source').value=manualXML||renderXML();}
+ root.scrollTo?.({top:0,behavior:'instant'});
+}
+function renderXML(){return M.serialize(state());}
+function updateXML(){
+ try{
+  const xml=renderXML();
+  if(!manualXML)$('xml-source').value=xml;
+  updateStatus('xml-status',manualXML?'Custom XML source is active; visual changes will require confirmation.':'Generated FetchXML is ready.');
+  return xml;
+ }catch(e){updateStatus('xml-status','Incomplete query: '+e.message,true);return '';}
+}
+function takeVisualEdit(){
+ if(!manualXML)return true;
+ if(!root.confirm('You have manually edited FetchXML. Changing the visual builder will replace your custom XML. Continue?'))return false;
+ manualXML=null;$('xml-source').readOnly=true;$('edit-xml').textContent='Edit XML';return true;
+}
+function touch(){updateXML();}
+function addField(table,field,targetId){
+ const n=node(targetId);if(!n||n.table!==table)return updateStatus('metadata-status','Select a matching table card to add the field.',true);
+ if(!takeVisualEdit())return;
+ if(!nameRx.test(field))return;
+ if(!n.fields.includes(field)){n.fields.push(field);renderCanvas();touch();}
+}
+async function changeTable(n,table){
+ if(!nameRx.test(table)){updateStatus('metadata-status','Enter a valid Dataverse logical table name.',true);return;}
+ if(!takeVisualEdit())return;
+ n.table=table;n.fields=[];n.filters=[];if(n.id!=='root'){n.from='';n.to='';n.alias='';}renderCanvas();touch();
+ if(!origin)return;
+ try{await loadFields(table);if(activeId===n.id)renderFields();}catch(e){updateStatus('metadata-status',e.message,true);}
+}
+function addLink(parent){
+ if(!takeVisualEdit())return;
+ if(nodes.length>=15)return updateStatus('metadata-status','Maximum of 14 linked entities.',true);
+ const suggestions=relationships.get(parent.table)||[];
+ const first=suggestions[0];
+ const n={id:'link'+nextId++,parent:parent.id,table:first?.table||'',fields:[],filters:[],filterType:'and',from:first?.from||'',to:first?.to||'',linkType:'inner',alias:''};
+ if(!n.table)n.table=tableList.find(t=>t.name!==parent.table)?.name||'contact';
+ nodes.push(n);activeId=n.id;renderCanvas();touch();
+ if(origin){void loadFields(n.table).then(()=>{if(activeId===n.id)renderFields();}).catch(e=>updateStatus('metadata-status',e.message,true));}
+}
+async function loadRelationshipOptions(n){
+ if(!origin)return;
+ try{await loadRelations(n.table);renderCanvas();}catch(e){updateStatus('metadata-status',e.message,true);}
+}
+function initEvents(){
+ $('tables').addEventListener('change',()=>{$('set-root').disabled=!$('tables').value;});
+ $('table-search').addEventListener('input',showTables);
+ $('field-search').addEventListener('input',renderFields);
+ $('refresh-tables').addEventListener('click',()=>{tableList=[];void loadTables();});
+ $('set-root').addEventListener('click',async()=>{
+  const table=$('tables').value;if(!table)return;
+  if((nodes.length>1||nodes[0].fields.length)&&table!==nodes[0].table&&!root.confirm('Replace the current query with '+table+'?'))return;
+  if(!takeVisualEdit())return;
+  nodes=[{id:'root',parent:null,table,fields:[],filters:[],filterType:'and',linkType:'inner',from:'',to:'',alias:''}];
+  activeId='root';renderCanvas();touch();
+  try{await loadFields(table);renderFields();}catch(e){updateStatus('metadata-status',e.message,true);}
+ });
+ $('field-list').addEventListener('click',e=>{
+  const b=e.target.closest('.field-add');if(b){addField(selected().table,b.dataset.field,activeId);}
+ });
+ $('field-list').addEventListener('dragstart',e=>{
+  const row=e.target.closest('.field-row');if(!row)return;
+  e.dataTransfer.effectAllowed='copy';e.dataTransfer.setData('application/x-fetchflow-field',JSON.stringify({table:row.dataset.table,field:row.dataset.field}));
+  e.dataTransfer.setData('text/plain',row.dataset.field);
+ });
+ const canvas=$('query-canvas');
+ canvas.addEventListener('dragover',e=>{const drop=e.target.closest('[data-drop]');if(drop){e.preventDefault();e.dataTransfer.dropEffect='copy';drop.classList.add('active');}});
+ canvas.addEventListener('dragleave',e=>{const drop=e.target.closest('[data-drop]');if(drop&&!drop.contains(e.relatedTarget))drop.classList.remove('active');});
+ canvas.addEventListener('drop',e=>{
+  const drop=e.target.closest('[data-drop]');if(!drop)return;
+  e.preventDefault();drop.classList.remove('active');
+  try{const payload=JSON.parse(e.dataTransfer.getData('application/x-fetchflow-field'));addField(payload.table,payload.field,drop.dataset.drop);}catch{updateStatus('metadata-status','Drag a field from the field list.',true);}
+ });
+ canvas.addEventListener('click',e=>{
+  const button=e.target.closest('button[data-action]');if(!button)return;
+  const card=button.closest('[data-node]'),n=node(card?.dataset.node);if(!n)return;
+  const action=button.dataset.action;
+  if(action==='select'){void selectContext(n.id);return;}
+  if(!takeVisualEdit())return;
+  if(action==='remove-node'){
+   const children=new Set([n.id]);let change=true;
+   while(change){change=false;nodes.forEach(x=>{if(children.has(x.parent)&&!children.has(x.id)){children.add(x.id);change=true;}});}
+   nodes=nodes.filter(x=>!children.has(x.id));activeId='root';
+  }else if(action==='remove-field'){n.fields=n.fields.filter(f=>f!==button.dataset.field);}
+  else if(action==='remove-filter'){n.filters.splice(Number(button.closest('[data-index]')?.dataset.index),1);}
+  else if(action==='add-filter'){if(n.filters.length>=25)return; n.filters.push({attribute:'',operator:'eq',value:''});}
+  else if(action==='add-link'){void loadRelations(n.table).then(()=>addLink(n)).catch(()=>addLink(n));return;}
+  renderCanvas();touch();
+ });
+ function changeInput(e){
+  const target=e.target,card=target.closest('[data-node]'),n=node(card?.dataset.node);if(!n)return;
+  const prop=target.dataset.prop;if(!prop)return;
+  if(!takeVisualEdit()){renderCanvas();return;}
+  const idx=Number(target.closest('[data-index]')?.dataset.index);
+  if(prop==='filter-attribute')n.filters[idx].attribute=target.value.trim();
+  else if(prop==='filter-operator'){n.filters[idx].operator=target.value;const value=target.closest('.filter-row')?.querySelector('[data-prop="filter-value"]');if(value)value.disabled=M.noValue.has(target.value);}
+  else if(prop==='filter-value')n.filters[idx].value=target.value;
+  else if(prop==='filterType')n.filterType=target.value;
+  else if(prop==='table'){if(e.type==='change'){void changeTable(n,target.value.trim());}return;}
+  else n[prop]=target.value;
+  touch();
+ }
+ canvas.addEventListener('input',changeInput);canvas.addEventListener('change',e=>{
+  const target=e.target;
+  if(target.dataset.action==='relationship'){
+   const n=node(target.closest('[data-node]')?.dataset.node),parent=node(n?.parent);
+   if(!n||!parent||!target.value||!takeVisualEdit())return;
+   const r=(relationships.get(parent.table)||[]).filter(x=>x.table===n.table)[Number(target.value)];
+   if(r){n.from=r.from;n.to=r.to;renderCanvas();touch();}
+  }else changeInput(e);
+ });
+ ['query-top','query-distinct','query-sort','query-order'].forEach(id=>$(id).addEventListener('input',()=>{if(takeVisualEdit())touch();}));
+ $('reset-query').addEventListener('click',()=>{if(!root.confirm('Clear the current visual query?')||!takeVisualEdit())return;nodes=[{id:'root',parent:null,table:'account',fields:[],filters:[],filterType:'and',from:'',to:'',alias:'',linkType:'inner'}];activeId='root';renderCanvas();renderFields();touch();});
+ $('btn-xml').addEventListener('click',()=>show('xml'));
+ ['back-design','results-back','visual-back'].forEach(id=>$(id).addEventListener('click',()=>show('builder')));
+ $('edit-xml').addEventListener('click',()=>{const field=$('xml-source');field.readOnly=!field.readOnly;$('edit-xml').textContent=field.readOnly?'Edit XML':'Finish editing';if(!field.readOnly){field.focus();manualXML=field.value;}});
+ $('xml-source').addEventListener('input',()=>{if(!$('xml-source').readOnly){manualXML=$('xml-source').value;updateStatus('xml-status','Manual FetchXML mode. Execution and visualisation use this source.');}});
+ $('import-xml').addEventListener('click',()=>{
+  try{const imported=M.importXML($('xml-source').value);nodes=imported.nodes;nextId=1+nodes.length;activeId='root';manualXML=null;$('xml-source').readOnly=true;$('edit-xml').textContent='Edit XML';
+  $('query-top').value=Math.min(50,imported.top||50);$('query-sort').value=imported.sort;$('query-distinct').checked=imported.distinct;$('query-order').value=imported.descending?'desc':'asc';renderCanvas();renderFields();touch();show('builder');
+  }catch(e){manualXML=$('xml-source').value;updateStatus('xml-status','Visual import unavailable: '+e.message+' XML remains available in source mode.',true);}
+ });
+ $('copy-xml').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(currentXML());updateStatus('xml-status','Copied FetchXML to clipboard.');}catch(e){updateStatus('xml-status','Clipboard unavailable; select and copy the XML text.',true);}});
+ $('download-xml').addEventListener('click',()=>{const xml=currentXML();if(!xml)return;const url=URL.createObjectURL(new Blob([xml],{type:'application/xml'})),a=document.createElement('a');a.href=url;a.download='fetchflow-query.xml';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+ $('btn-visualise').addEventListener('click',()=>{show('visual');try{
+  const model=X.parse(currentXML());
+  const entries=[['diagram-rel',Diagrams.relationship],['diagram-flow',Diagrams.pipeline],['diagram-fields',Diagrams.lineage]];
+  entries.forEach(([id,fn])=>$(id).replaceChildren(fn(model)));
+  updateStatus('visual-status',model.nodes.length+' tables analysed · visualisation generated locally.');
+ }catch(e){['diagram-rel','diagram-flow','diagram-fields'].forEach(id=>$(id).replaceChildren());updateStatus('visual-status',e.message,true);}
+ });
+ $('btn-run').addEventListener('click',execute);
+}
+function currentXML(){try{return manualXML??renderXML();}catch(e){updateStatus('xml-status',e.message,true);return '';}}
+async function execute(){
+ if(!xrm)return updateStatus('metadata-status','Live execution requires a signed-in Dataverse model-driven app.',true);
+ let query;
+ try{query=M.forPreview(currentXML(),Number($('query-top').value)||50);}catch(e){show('xml');updateStatus('xml-status',e.message,true);return;}
+ show('results');$('results-head').replaceChildren();$('results-body').replaceChildren();
+ $('btn-run').disabled=true;const serial=++resultRun;
+ updateStatus('results-status','Executing FetchXML against the current Dataverse environment…');
+ try{
+  const entitySet=tableList.find(t=>t.name===query.table)?.entitySet;
+  if(!entitySet||!/^[A-Za-z_][A-Za-z0-9_]*$/.test(entitySet))throw Error('Select a table whose entity-set metadata has loaded.');
+  const target=new URL('/api/data/v9.2/'+entitySet,origin);
+  target.searchParams.set('fetchXml',query.xml);
+  const response=await fetch(target.href,{credentials:'same-origin',headers:{'Accept':'application/json','OData-Version':'4.0','OData-MaxVersion':'4.0','Prefer':'odata.include-annotations="OData.Community.Display.V1.FormattedValue"'}});
+  if(!response.ok){let detail=await response.text();try{detail=JSON.parse(detail).error?.message||detail}catch{}throw Error('Dataverse '+response.status+': '+detail.slice(0,350))}
+  const result=await response.json();
+  if(serial!==resultRun)return;
+  const records=(result.value||[]).slice(0,maxRecords);
+  const columns=Array.from(new Set(records.flatMap(record=>Object.keys(record).filter(key=>!key.startsWith('@')&&!key.includes('@')).slice(0,50)))).slice(0,30);
+  const tr=document.createElement('tr');columns.forEach(name=>{const th=document.createElement('th');th.textContent=name;th.scope='col';tr.append(th);});$('results-head').append(tr);
+  records.forEach(record=>{const row=document.createElement('tr');columns.forEach(col=>{
+   const cell=document.createElement('td'),raw=record[col+'@OData.Community.Display.V1.FormattedValue']??record[col];
+   const value=raw===null||raw===undefined?'—':typeof raw==='object'?JSON.stringify(raw):String(raw);
+   cell.textContent=value.length>350?value.slice(0,347)+'…':value;row.append(cell);
+  });$('results-body').append(row);});
+  $('results-summary').textContent=records.length+' records returned'+(result.nextLink||result.fetchXmlPagingCookie?' · more may be available':'');
+  updateStatus('results-status',records.length?'Query executed successfully.':'Query executed successfully; no matching records.');
+ }catch(e){$('results-summary').textContent='Execution failed';updateStatus('results-status',e.message||String(e),true);}
+ finally{if(serial===resultRun)$('btn-run').disabled=false;}
+}
+function start(){
+ initEvents();
+ const ctx=context();
+ if(ctx){origin=ctx.origin;$('connection').textContent='● Connected to Dataverse';$('connection').classList.add('ok');$('btn-run').disabled=false;void loadTables();}
+ else{$('connection').textContent='Offline preview · no Dataverse';updateStatus('metadata-status','Open the HTML as a model-driven app web resource to browse metadata and execute queries.');}
+ renderCanvas();renderFields();updateXML();
+ const params=new URLSearchParams(root.location.search);
+ try{const data=params.get('data');const parsed=data&&data.length<1500?JSON.parse(data):null;const name=parsed?.entityName||params.get('typename');if(nameRx.test(name||''))void changeTable(nodes[0],name);}catch{}
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})(window);</script>
+</body>
+</html>

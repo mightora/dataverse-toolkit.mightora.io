@@ -1,0 +1,26 @@
+{
+  "kind": "web-resource-bundle-not-Dataverse-solution",
+  "version": "0.4-beta",
+  "tools": [
+    "mgt_trace.html",
+    "mgt_metadata.html",
+    "mgt_fetchxml.html",
+    "mgt_counter.html",
+    "mgt_solutions.html",
+    "mgt_relationships.html",
+    "mgt_webresources.html",
+    "mgt_views.html",
+    "mgt_security.html",
+    "mgt_environment.html",
+    "mgt_migration.html",
+    "mgt_rest.html",
+    "mgt_fetchflow.html",
+    "mgt_solution_explorer.html"
+  ],
+  "upstream_commits": {
+    "rest": "66d0b5cd45ef494dfadee24454fb4bb373569149",
+    "fetchflow": "000bb5868f7bf8c5731af09eb01e1bcf1f54e1e4",
+    "solution_explorer": "7157e2d37445ae35e93a36d6d5a8f2b4393276fc"
+  },
+  "dataverse_solution_importable": false
+}

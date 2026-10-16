@@ -1,9 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Solution Inspector | Mightora Dataverse Toolkit</title><script>
-/* Resolve Microsoft ClientGlobalContext.js.aspx relative to the web resource. */
+/* Detect correct Microsoft context helper path for flat and virtual-folder names. */
 if(location.protocol!=='file:' && new URLSearchParams(location.search).get('demo')!=='1'){
   const segments=decodeURIComponent(location.pathname).split(/\/webresources\//i);
-  const name=segments.length>1?segments[segments.length-1]:'';
-  const depth=Math.min(8,(name.match(/\//g)||[]).length);
+  const resource=segments.length>1?segments[segments.length-1]:'';
+  const depth=Math.min(8,(resource.match(/\//g)||[]).length);
   document.write('<script src="'+ '../'.repeat(depth) + 'ClientGlobalContext.js.aspx"><\/script>');
 }
 </script><style>

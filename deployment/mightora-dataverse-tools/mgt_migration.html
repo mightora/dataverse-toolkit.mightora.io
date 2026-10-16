@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Configuration Migration Studio | Mightora Dataverse Tools</title>
+<meta name="description" content="Mightora Configuration Migration Studio beta. Build reusable schemas, export Dataverse configuration records, validate an import plan and run guarded GUID-based upserts in a model-driven app.">
+<script>
+/* Microsoft context path supports both flat HTML and mgt_/virtual folder names. */
+if(location.protocol!=='file:' && new URLSearchParams(location.search).get('demo')!=='1'){
+  const segments=decodeURIComponent(location.pathname).split(/\/webresources\//i);
+  const name=segments.length>1?segments[segments.length-1]:'';
+  const depth=Math.min(8,(name.match(/\//g)||[]).length);
+  document.write('<script src="'+ '../'.repeat(depth) + 'ClientGlobalContext.js.aspx"><\/script>');
+}
+</script><style>
+:root{--navy:#0b2a40;--navy2:#114463;--aqua:#15aca5;--bg:#f3f7fa;--ink:#142e42;--muted:#5b6c7e;--line:#d8e2e9;--good:#147555;--warn:#ad6810;--bad:#bc3535;--surface:white;font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--bg)}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.5}
+a{color:#126186}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--aqua);outline-offset:2px}
+header{background:var(--navy);color:white;padding:18px clamp(18px,4vw,48px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.brand{font-size:1.17rem;font-weight:800;letter-spacing:-.03em}.brand span{color:#7dece4}.brand small{display:block;color:#b7d5e1;font-size:.69rem;letter-spacing:.11em;text-transform:uppercase}
+.env-pill{border:1px solid #57829a;background:#123e56;border-radius:22px;padding:7px 12px;font-size:.83rem;max-width:100%;word-break:break-all}
+.beta{border-bottom:1px solid #dbac5a;background:#fff2d7;color:#6d4303;text-align:center;padding:12px 18px;font-size:.87rem}.beta a{color:#684004;font-weight:700}
+main{max-width:1220px;padding:25px 22px 55px;margin:auto}
+.hero{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:22px}.hero h1{font-size:clamp(1.7rem,3.8vw,2.7rem);letter-spacing:-.045em;line-height:1.12;margin:0}.hero p{color:var(--muted);max-width:750px;margin:9px 0}
+.steps{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}.steps button{border-radius:9px;border:1px solid var(--line);background:white;color:var(--ink);font-weight:700;padding:10px 16px}.steps button[aria-selected=true]{color:white;background:var(--navy2);border-color:var(--navy2)}
+.panel{background:white;border:1px solid var(--line);border-radius:14px;box-shadow:0 3px 13px #10304409;padding:21px;margin-bottom:18px}
+.panel h2{font-size:1.15rem;margin:0 0 9px}.panel h3{font-size:1rem;margin:0 0 8px}.panel p{color:var(--muted);margin:9px 0}
+label{display:block;font-size:.83rem;font-weight:700;color:#3a556a;margin-bottom:5px}
+input:not([type=checkbox]),select,textarea{background:white;color:#172d40;border:1px solid #bacbd8;border-radius:9px;padding:10px 12px;width:100%;min-width:0}
+textarea{min-height:70px;resize:vertical;font-family:ui-monospace,monospace}
+input[type=checkbox]{accent-color:var(--aqua);width:16px;height:16px;vertical-align:middle}.check{display:flex;gap:8px;align-items:flex-start;font-size:.87rem;font-weight:500;color:var(--ink)}
+button.primary{background:#086b80;color:white;border:1px solid #086b80}button.secondary{background:#edf5f8;color:#0d5575;border:1px solid #c7dce6}button.danger{color:white;background:#a84024;border:1px solid #a84024}button{border-radius:8px;padding:9px 14px;border:1px solid #cbd9e4;background:white;font-weight:700}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:end}.controls>*{flex:0 1 auto}.field{min-width:210px;flex:1}.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.muted{color:var(--muted);font-size:.86rem}.tiny{font-size:.76rem}.callout{padding:12px 15px;border-left:4px solid #d4a147;background:#fff9ed;border-radius:0 9px 9px 0;margin:12px 0}
+.success{border-left-color:#1a8b67;background:#eff9f4}.error{border-left-color:#cf4840;background:#fef3f2}
+.toast{display:none;padding:12px 15px;margin-bottom:16px;white-space:pre-wrap;overflow-wrap:anywhere}.toast.show{display:block}
+.tags{display:flex;gap:7px;flex-wrap:wrap}.tag{display:inline-block;background:#e6f5f3;color:#08796a;border:1px solid #c2e5df;font-size:.75rem;font-weight:800;padding:2px 9px;border-radius:30px}
+.item{border:1px solid var(--line);background:#fdfefe;border-radius:10px;padding:14px;margin:10px 0}.item-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.item-head h3{margin:0}.item .row{margin-top:12px}
+.field-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-height:260px;overflow-y:auto;margin-top:12px;padding:5px}.field-tick{border:1px solid #e1e8ee;padding:8px;border-radius:7px;background:#fff;font-size:.82rem;overflow-wrap:anywhere}
+.log{padding:12px;background:#071d2b;color:#dbf3f3;border-radius:8px;min-height:120px;max-height:280px;overflow:auto;font:12px/1.6 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
+code{font:12px ui-monospace,monospace;background:#eff4f7;padding:2px 4px}
+[hidden]{display:none!important}
+table{width:100%;border-collapse:collapse;min-width:490px}th{text-align:left;background:#eef4f7}td,th{padding:9px 12px;border-bottom:1px solid #e5edf0;font-size:.85rem}.scroll{overflow:auto}
+footer{padding:26px 10px;border-top:1px solid #dae5ea;color:#627487;text-align:center;font-size:.8rem}
+@media(max-width:740px){.row,.three{grid-template-columns:1fr}.field-grid{grid-template-columns:repeat(2,minmax(0,1fr))}main{padding:18px 12px 40px}.panel{padding:15px}.steps button{flex:1}}
+</style></head>
+<body><header><div class="brand">MIGHTORA <span>·</span> Configuration Migration Studio<small>Dataverse developer toolkit</small></div><div id="environment" class="env-pill">Detecting environment</div></header>
+<div class="beta" role="status"><strong>PUBLIC BETA · 0.3</strong> — Still undergoing testing. Work in a development environment first. <a href="https://github.com/mightora/dataverse-toolkit.mightora.io/issues/new" target="_blank" rel="noopener">Report an issue ↗</a></div>
+<main><div class="hero"><div><h1>Move configuration data.<br>Without a desktop installer.</h1><p>Build a reusable schema, export selected rows into a portable JSON package, and import into a different environment using the authenticated Dataverse Web API.</p><div class="tags"><span class="tag">Same-origin Dataverse</span><span class="tag">Portable JSON</span><span class="tag">Preview before writing</span><span class="tag">No external telemetry</span></div></div></div>
+<div id="message" role="status" class="panel toast" aria-live="polite"></div>
+<div class="steps" role="tablist" aria-label="Migration workflow">
+<button type="button" role="tab" data-tab="schema" aria-selected="true">1. Design schema</button>
+<button type="button" role="tab" data-tab="export" aria-selected="false">2. Export package</button>
+<button type="button" role="tab" data-tab="import" aria-selected="false">3. Validate &amp; import</button>
+<button type="button" role="tab" data-tab="guide" aria-selected="false">Guide &amp; limitations</button>
+</div>
+<section id="tab-schema" role="tabpanel">
+<div class="panel">
+<h2>Choose tables</h2><p>Choose configuration tables and supported scalar columns. Lookups, images, files, owner references and advanced relationship migration are intentionally excluded from this beta.</p>
+<div class="controls"><div class="field"><label for="table-search">Find a Dataverse table</label><input id="table-search" list="table-options" placeholder="For example mgt_setting or account" autocomplete="off"><datalist id="table-options"></datalist></div><button id="load-tables" class="secondary" type="button">Load table catalogue</button><button id="add-table" class="primary" type="button">Add table</button></div>
+<p class="muted" id="schema-hint">Use Load table catalogue in a model-driven app, or use sample mode to try the designer.</p>
+</div>
+<div class="panel"><div class="item-head"><h2>Migration schema</h2><span class="tag" id="schema-count">0 tables</span></div>
+<div id="schema-items"><p class="muted">No tables selected.</p></div>
+<div class="controls"><button id="save-schema" class="secondary" type="button">Download schema JSON</button><button id="load-schema-btn" class="secondary" type="button">Open schema JSON</button><input id="load-schema" type="file" accept=".json,application/json" hidden><button id="reset-schema" type="button">Clear schema</button></div>
+</div></section>
+<section id="tab-export" role="tabpanel" hidden>
+<div class="panel"><h2>Export configuration records</h2>
+<p>Each table is read with paged Web API requests, preserving primary record GUIDs. There is a deliberately conservative cap per table. An export stops rather than silently truncating rows.</p>
+<div class="callout">The exported <strong>Mightora JSON</strong> format is <strong>not interchangeable</strong> with Microsoft's Configuration Migration ZIP or schema XML. Move the downloaded JSON file to the target environment yourself; no credentials are shared between environments.</div>
+<div class="controls"><button class="primary" id="export-data" type="button">Export selected records</button><button class="secondary" id="download-sample" type="button">Download sample data package</button></div>
+<div class="log" id="export-log" role="log" aria-live="polite">Export has not started.</div>
+</div></section>
+<section id="tab-import" role="tabpanel" hidden>
+<div class="panel"><h2>Import into the current Dataverse environment</h2>
+<p>Open this page in the <strong>target</strong> model-driven app, load the exported JSON, and run preflight checks. The tool writes only supported simple fields, using a source GUID to identify a record for create/update.</p>
+<div class="controls"><div class="field"><label for="import-file">Mightora migration package (.json)</label><input id="import-file" type="file" accept=".json,application/json"></div><button type="button" id="validate-import" class="secondary" disabled>Validate target and preview</button></div>
+<div class="callout">No plug-ins are disabled. Dataverse business rules, security and plug-ins may run during import. Records are upserted with their original GUIDs; natural-key matching, lookup bindings and user mapping are not implemented. The Microsoft ZIP format is not supported.</div>
+<div id="import-summary" class="scroll"><p class="muted">Select a package to inspect its contents. No records will change during validation.</p></div>
+</div>
+<div class="panel"><h2>Confirm target before writing</h2>
+<div class="row"><div><label for="confirm-host">Type the current target hostname exactly</label><input id="confirm-host" autocomplete="off" placeholder="target.crm.dynamics.com"><p class="muted" id="actual-host">Target: not connected</p></div><div><label>Safety confirmations</label><label class="check"><input type="checkbox" id="confirm-backup"> I have a backup and have tested this in a development environment.</label><label class="check"><input type="checkbox" id="confirm-impact"> I understand that PATCH requests can create/update data and invoke plug-ins.</label><label class="check"><input type="checkbox" id="confirm-lookup"> I accept that this beta does not migrate lookups/relationships or map users.</label></div></div>
+<div class="controls"><button id="perform-import" class="danger" type="button" disabled>Begin controlled upsert (writes data)</button><button id="stop-import" type="button" disabled>Stop after current record</button><button id="download-log" class="secondary" type="button">Download activity log</button></div>
+<div id="import-log" class="log" role="log" aria-live="polite">No import performed.</div>
+</div></section>
+<section id="tab-guide" role="tabpanel" hidden><div class="panel">
+<h2>What works in this beta</h2>
+<div class="scroll"><table><thead><tr><th>Microsoft Configuration Migration</th><th>Mightora browser beta</th></tr></thead><tbody>
+<tr><td>Select tables and columns</td><td>Supported, for simple writable scalar columns</td></tr>
+<tr><td>Save and reuse a schema</td><td>Supported as Mightora JSON, not Microsoft schema XML</td></tr>
+<tr><td>Validate schema and dependencies</td><td>Basic table/attribute validation; no relationship dependency resolution</td></tr>
+<tr><td>Export configuration records</td><td>Supported with OData pagination and an explicit 2,000-record-per-table cap</td></tr>
+<tr><td>Import across environments</td><td>Supported by downloading JSON from source and uploading from target</td></tr>
+<tr><td>Duplicate prevention</td><td>GUID-based upsert only. Does not match names or configurable uniqueness rules</td></tr>
+<tr><td>Multiple passes for linked data</td><td>Not implemented; lookups and relationship linking excluded</td></tr>
+<tr><td>User and team mapping</td><td>Not implemented</td></tr>
+<tr><td>Disable plug-ins</td><td>Not implemented; automation may execute during writes</td></tr>
+<tr><td>Microsoft data ZIP/XML interoperability</td><td>Not supported; entirely separate file format</td></tr>
+<tr><td>Date shifting, calendar, images, files</td><td>Not implemented</td></tr>
+</tbody></table></div>
+<h2 style="margin-top:22px">Installation and deployment</h2>
+<p>In Power Apps, add <code>mgt_/migration.html</code> as an HTML web resource to your unmanaged solution. Add it as a page in the model-driven app designer. Deploy the same resource to the source and destination environments using your normal ALM pipeline.</p>
+<p>The public GitHub Pages preview runs in <strong>sample mode</strong> and cannot access an authenticated Dataverse environment. Host-embedded web resources use only same-origin Web API calls and never load third-party JavaScript or Cloudflare analytics. Do not use this to move live customer data until verified in a development tenant.</p>
+<p>References: <a href="https://learn.microsoft.com/en-us/power-platform/admin/manage-configuration-data" target="_blank" rel="noopener">Microsoft Configuration Migration capabilities ↗</a>, <a href="https://learn.microsoft.com/en-us/power-apps/developer/data-platform/use-upsert-insert-update-record" target="_blank" rel="noopener">Dataverse upsert ↗</a>.</p>
+</div></section>
+<footer>Configuration Migration Studio · Mightora Public Beta · <a href="https://github.com/mightora/dataverse-toolkit.mightora.io" target="_blank" rel="noopener">MIT-licensed source</a> · No Cloudflare analytics inside model-driven app web resources</footer>
+</main><script>
+const app=(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const demo=new URLSearchParams(location.search).get('demo')==='1'||location.protocol==='file:';
+const context=!demo&&typeof GetGlobalContext==='function'?GetGlobalContext():null;
+const clientUrl=context?String(context.getClientUrl()).replace(/\/$/,''):null;
+const apiRoot=clientUrl?new URL(clientUrl+'/api/data/v9.2/'):null;
+const sourceHost=clientUrl?new URL(clientUrl).hostname:'';
+$('environment').textContent=demo?'Sample mode · no Dataverse calls':clientUrl?'Environment · '+new URL(clientUrl).hostname:'No Dataverse session · sample preview available with ?demo=1';
+$('actual-host').textContent=clientUrl?'Target: '+sourceHost:'Target: not connected';
+const safeTypes=new Set(['String','Memo','Boolean','Integer','BigInt','Decimal','Double','DateTime','Picklist']);
+const MAX=2000,SCHEMA_TYPE='mightora-configuration-schema',PACKAGE_TYPE='mightora-configuration-data';
+let catalogue=[],schema={format:SCHEMA_TYPE,version:1,tables:[]},packageData=null,preflight=false,abortRequested=false,activity=[];
+function note(text,tone=''){const node=$('message');node.className='panel toast show '+tone;node.textContent=text}
+function log(id,text){const node=$(id);node.textContent=(node.textContent==='Export has not started.'||node.textContent==='No import performed.'?'':node.textContent+'\n')+new Date().toLocaleTimeString()+' · '+text;node.scrollTop=node.scrollHeight;if(id==='import-log')activity.push({at:new Date().toISOString(),message:text})}
+function download(filename,value,mime='application/json'){const blob=new Blob([typeof value==='string'?value:JSON.stringify(value,null,2)],{type:mime});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000)}
+function assertName(v){if(!/^[a-zA-Z][a-zA-Z0-9_]*$/.test(v))throw Error('Invalid Dataverse schema name: '+v);return v}
+function guid(v){return typeof v==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v)}
+async function read(path){
+ if(!apiRoot)throw Error('No authenticated Dataverse session. Open the HTML web resource inside a model-driven app.');
+ const u=new URL(path,apiRoot);
+ if(u.origin!==apiRoot.origin||!u.pathname.startsWith(apiRoot.pathname))throw Error('API request blocked outside the current Dataverse environment.');
+ let resp;
+ for(let attempt=0;attempt<3;attempt++){
+  resp=await fetch(u.href,{credentials:'same-origin',headers:{'Accept':'application/json','OData-MaxVersion':'4.0','OData-Version':'4.0','Prefer':'odata.maxpagesize=200'}});
+  if(resp.status!==429&&resp.status!==503)break;
+  const seconds=Math.min(8,Number(resp.headers.get('Retry-After'))||attempt+1);
+  await new Promise(resolve=>setTimeout(resolve,seconds*1000));
+ }
+ if(!resp.ok){const data=await resp.text();let detail=data;try{detail=JSON.parse(data).error?.message||data}catch{}throw Error('Dataverse '+resp.status+': '+detail.slice(0,400))}
+ return resp.json();
+}
+async function pages(path,limit=2000){
+ let rows=[],next=path;
+ while(next){
+  const response=await read(next);
+  const batch=response.value||[];
+  if(rows.length+batch.length>limit)throw Error('Export limit of '+limit+' reached. Narrow your filter or split the migration; nothing was downloaded.');
+  rows.push(...batch);
+  next=response['@odata.nextLink']||'';
+  if(rows.length===limit&&next)throw Error('More records exist beyond the '+limit+'-row limit. Narrow your filter before export.');
+ }
+ return rows;
+}
+async function write(path,body){
+ if(!apiRoot)throw Error('Cannot write without a target Dataverse session.');
+ const url=new URL(path,apiRoot);
+ if(url.origin!==apiRoot.origin||!url.pathname.startsWith(apiRoot.pathname))throw Error('Blocked cross-environment write');
+ let response;
+ for(let attempt=0;attempt<3;attempt++){
+  response=await fetch(url.href,{method:'PATCH',credentials:'same-origin',headers:{'Accept':'application/json','Content-Type':'application/json; charset=utf-8','OData-MaxVersion':'4.0','OData-Version':'4.0'},body:JSON.stringify(body)});
+  if(response.status!==429&&response.status!==503)break;
+  const wait=Math.min(8,Number(response.headers.get('Retry-After'))||attempt+1);
+  await new Promise(r=>setTimeout(r,wait*1000));
+ }
+ if(!response.ok){let d=await response.text();try{d=JSON.parse(d).error?.message||d}catch{}throw Error('HTTP '+response.status+': '+d.slice(0,300))}
+ return response.status;
+}
+function switchTab(name){for(const b of document.querySelectorAll('[data-tab]'))b.setAttribute('aria-selected',String(b.dataset.tab===name));for(const s of ['schema','export','import','guide'])$('tab-'+s).hidden=s!==name;window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
+function sampleTableMeta(name){
+ const table=name||'mgt_setting';
+ return {LogicalName:table,EntitySetName:table+'s',PrimaryIdAttribute:table+'id',PrimaryNameAttribute:'mgt_name',DisplayName:{UserLocalizedLabel:{Label:table}},sample:true};
+}
+function sampleAttributes(name){return [{LogicalName:name+'id',AttributeType:'Uniqueidentifier',IsValidForRead:true},{LogicalName:'mgt_name',AttributeType:'String',IsValidForCreate:true,IsValidForUpdate:true,IsValidForRead:true},{LogicalName:'mgt_enabled',AttributeType:'Boolean',IsValidForCreate:true,IsValidForUpdate:true,IsValidForRead:true},{LogicalName:'mgt_rank',AttributeType:'Integer',IsValidForCreate:true,IsValidForUpdate:true,IsValidForRead:true},{LogicalName:'mgt_description',AttributeType:'Memo',IsValidForCreate:true,IsValidForUpdate:true,IsValidForRead:true}]}
+async function loadCatalogue(){
+ if(demo){catalogue=[sampleTableMeta('mgt_setting'),sampleTableMeta('mgt_category')];}
+ else{
+  $('load-tables').disabled=true;
+  try{catalogue=await pages("EntityDefinitions?$select=LogicalName,EntitySetName,PrimaryIdAttribute,PrimaryNameAttribute,DisplayName,IsCustomEntity",2000)}
+  finally{$('load-tables').disabled=false}
+ }
+ const options=$('table-options');options.replaceChildren();
+ for(const t of catalogue.filter(x=>x.EntitySetName&&x.PrimaryIdAttribute).sort((a,b)=>a.LogicalName.localeCompare(b.LogicalName))){
+  const option=document.createElement('option');option.value=t.LogicalName;option.label=t.DisplayName?.UserLocalizedLabel?.Label||t.LogicalName;options.appendChild(option);
+ }
+ $('schema-hint').textContent=catalogue.length+' table definitions available. Enter the logical name to select a table.';
+ note((demo?'Sample':'Live')+' table catalogue loaded: '+catalogue.length+' tables.','success');
+}
+async function attributes(table){
+ if(demo)return sampleAttributes(table.LogicalName);
+ const key=encodeURIComponent(table.LogicalName).replace(/'/g,"''");
+ return pages("EntityDefinitions(LogicalName='"+key+"')/Attributes?$select=LogicalName,AttributeType,IsValidForCreate,IsValidForUpdate,IsValidForRead",2000);
+}
+async function addTable(){
+ const name=$('table-search').value.trim();if(!name)return note('Enter a logical table name first.','error');
+ if(schema.tables.some(x=>x.logicalName===name))return note('That table is already in the schema.','error');
+ $('add-table').disabled=true;
+ try{
+  const t=catalogue.find(x=>x.LogicalName===name);
+  if(!t)throw Error('Load the table catalogue first and select an existing logical name.');
+  const all=await attributes(t);
+  const allowed=all.filter(a=>safeTypes.has(a.AttributeType)&&a.IsValidForCreate===true&&a.IsValidForUpdate===true&&a.IsValidForRead===true);
+  if(!allowed.length)throw Error('No primitive fields are both readable and writable for this table. This beta cannot migrate it.');
+  const names=allowed.map(a=>a.LogicalName);
+  const defaults=[t.PrimaryNameAttribute,...names.filter(n=>n!==t.PrimaryNameAttribute).slice(0,3)].filter(n=>names.includes(n));
+  schema.tables.push({logicalName:t.LogicalName,entitySetName:t.EntitySetName,primaryId:t.PrimaryIdAttribute,primaryName:t.PrimaryNameAttribute,fields:[...new Set(defaults)],allowed:names,filter:'',limit:500});
+  renderSchema();note('Added '+name+' (primitive fields only).','success');$('table-search').value='';
+ }catch(e){note(e.message,'error')}
+ finally{$('add-table').disabled=false}
+}
+function el(tag,attrs={},text){const e=document.createElement(tag);for(const [k,v] of Object.entries(attrs)){if(k==='className')e.className=v;else if(k==='value')e.value=v;else e.setAttribute(k,String(v))}if(text!==undefined)e.textContent=text;return e}
+function renderSchema(){
+ const root=$('schema-items');root.replaceChildren();$('schema-count').textContent=schema.tables.length+' tables';
+ if(!schema.tables.length){root.appendChild(el('p',{className:'muted'},'No tables selected.'));return}
+ for(const table of schema.tables){
+  const block=el('article',{className:'item'});
+  const h=el('div',{className:'item-head'});h.appendChild(el('h3',{},table.logicalName+' · '+table.fields.length+' columns'));
+  const remove=el('button',{type:'button'},'Remove');remove.addEventListener('click',()=>{schema.tables=schema.tables.filter(t=>t!==table);renderSchema()});h.appendChild(remove);block.appendChild(h);
+  block.appendChild(el('p',{className:'muted'},'Entity set: '+table.entitySetName+' · Primary ID: '+table.primaryId+' · No relationships imported.'));
+  const inputs=el('div',{className:'row'});
+  const filterWrap=el('div');filterWrap.appendChild(el('label',{},'Optional OData filter (without $filter=)'));const filter=el('input',{value:table.filter||'',placeholder:"mgt_enabled eq true"});filter.addEventListener('input',()=>table.filter=filter.value);filterWrap.appendChild(filter);inputs.appendChild(filterWrap);
+  const capWrap=el('div');capWrap.appendChild(el('label',{},'Maximum rows per table (1–2,000)'));const cap=el('input',{type:'number',min:1,max:2000,value:table.limit||500});cap.addEventListener('change',()=>table.limit=Math.max(1,Math.min(MAX,Number(cap.value)||500)));capWrap.appendChild(cap);inputs.appendChild(capWrap);block.appendChild(inputs);
+  const fields=el('div',{className:'field-grid'});
+  for(const f of table.allowed){const label=el('label',{className:'field-tick check'});const tick=el('input',{type:'checkbox',value:f});tick.checked=table.fields.includes(f);
+   tick.addEventListener('change',()=>{table.fields=tick.checked?[...table.fields,f]:table.fields.filter(x=>x!==f);renderSchema()});
+   label.appendChild(tick);label.appendChild(el('span',{},f));fields.appendChild(label)}
+  block.appendChild(fields);root.appendChild(block);
+ }
+}
+function validateSchema(input){
+ if(!input||input.format!==SCHEMA_TYPE||input.version!==1||!Array.isArray(input.tables)||input.tables.length>30)throw Error('Not a supported Mightora schema v1.');
+ const unique=new Set();
+ for(const t of input.tables){
+  for(const key of ['logicalName','entitySetName','primaryId'])assertName(t[key]);
+  if(unique.has(t.logicalName))throw Error('Duplicate table '+t.logicalName);unique.add(t.logicalName);
+  if(!Array.isArray(t.fields)||!Array.isArray(t.allowed)||t.fields.length===0||t.fields.length>100)throw Error('Invalid table fields for '+t.logicalName);
+  for(const x of [...t.fields,...t.allowed])assertName(x);
+  if(t.fields.some(f=>!t.allowed.includes(f)))throw Error('Unselected field in '+t.logicalName);
+  if(t.limit<1||t.limit>MAX)throw Error('Row limit out of range');
+  t.filter=String(t.filter||'').slice(0,1500);
+ }
+ return input;
+}
+function samplePackage(){const s={format:SCHEMA_TYPE,version:1,tables:[{logicalName:'mgt_setting',entitySetName:'mgt_settings',primaryId:'mgt_settingid',primaryName:'mgt_name',fields:['mgt_name','mgt_enabled','mgt_rank'],allowed:['mgt_name','mgt_enabled','mgt_rank'],filter:'',limit:500}]};
+ const rows=[{mgt_settingid:'11111111-1111-4111-8111-111111111111',mgt_name:'Primary setting',mgt_enabled:true,mgt_rank:1},{mgt_settingid:'22222222-2222-4222-8222-222222222222',mgt_name:'Secondary setting',mgt_enabled:false,mgt_rank:2}];
+ return {format:PACKAGE_TYPE,version:1,createdAt:new Date().toISOString(),sourceHost:'demo.example.invalid',schema:s,tables:[{logicalName:'mgt_setting',entitySetName:'mgt_settings',primaryId:'mgt_settingid',rows}],note:'SAMPLE ONLY – not actual Dataverse data'};}
+async function exportData(){
+ $('export-data').disabled=true;$('export-log').textContent='';try{
+  validateSchema(schema);if(!schema.tables.length)throw Error('Add at least one table before exporting.');
+  if(!demo&&!clientUrl)throw Error('Live export requires a model-driven app Dataverse session.');
+  const output={format:PACKAGE_TYPE,version:1,createdAt:new Date().toISOString(),sourceHost:demo?'demo.example.invalid':sourceHost,schema:JSON.parse(JSON.stringify(schema)),tables:[]};
+  for(const t of schema.tables){
+   const select=[t.primaryId,...t.fields].join(',');
+   const query=t.entitySetName+'?$select='+encodeURIComponent(select)+(t.filter?'&$filter='+encodeURIComponent(t.filter):'')+'&$orderby='+encodeURIComponent(t.primaryId+' asc');
+   log('export-log','Reading '+t.logicalName+'…');
+   const rows=demo?samplePackage().tables[0].rows.filter(r=>t.logicalName==='mgt_setting'):await pages(query,Number(t.limit));
+   const selected=rows.map(r=>Object.fromEntries([t.primaryId,...t.fields].filter(f=>r[f]!==undefined).map(f=>[f,r[f]])));
+   output.tables.push({logicalName:t.logicalName,entitySetName:t.entitySetName,primaryId:t.primaryId,rows:selected});
+   log('export-log',t.logicalName+': '+selected.length+' rows exported');
+  }
+  download('mightora-config-'+new Date().toISOString().slice(0,10)+'.json',output);
+  log('export-log','Complete. Portable file generated locally; keep it secure.');
+ }catch(e){log('export-log','ERROR: '+e.message);note(e.message,'error')}finally{$('export-data').disabled=false}
+}
+function parsePackage(pkg){
+ if(!pkg||pkg.format!==PACKAGE_TYPE||pkg.version!==1||!Array.isArray(pkg.tables)||pkg.tables.length>30)throw Error('Invalid or unsupported package. Microsoft Configuration Migration ZIP files are not accepted.');
+ validateSchema(pkg.schema);
+ const expected=new Map(pkg.schema.tables.map(t=>[t.logicalName,t]));
+ let total=0;
+ for(const t of pkg.tables){
+  const s=expected.get(t.logicalName);
+  if(!s||s.entitySetName!==t.entitySetName||s.primaryId!==t.primaryId)throw Error('Schema mismatch in '+t.logicalName);
+  if(!Array.isArray(t.rows)||t.rows.length>MAX)throw Error('Too many rows in '+t.logicalName);
+  const ids=new Set();
+  for(const r of t.rows){
+   if(!r||!guid(r[t.primaryId]))throw Error('Invalid record GUID in '+t.logicalName);
+   if(ids.has(r[t.primaryId].toLowerCase()))throw Error('Duplicate record GUID in '+t.logicalName);
+   ids.add(r[t.primaryId].toLowerCase());
+   for(const key of Object.keys(r))if(key!==t.primaryId&&!s.fields.includes(key))throw Error('Field not permitted: '+key);
+   for(const value of Object.values(r))if(value!==null&&!['string','number','boolean'].includes(typeof value))throw Error('Only scalar fields can be imported.');
+   total++;
+  }
+ }
+ if(total>10000)throw Error('Package exceeds beta safety cap of 10,000 records.');
+ return total;
+}
+async function validateImport(){
+ if(!packageData)return note('Select a Mightora JSON package first.','error');
+ $('validate-import').disabled=true;$('perform-import').disabled=true;preflight=false;
+ try{
+  if(!clientUrl)throw Error('Target validation needs a signed-in model-driven app. Public demos cannot write.');
+  const total=parsePackage(packageData);
+  let rows=[];
+  for(const data of packageData.tables){
+   const meta=await read("EntityDefinitions(LogicalName='"+assertName(data.logicalName)+"')?$select=LogicalName,EntitySetName,PrimaryIdAttribute");
+   if(meta.EntitySetName!==data.entitySetName||meta.PrimaryIdAttribute!==data.primaryId)throw Error('Target schema differs for '+data.logicalName);
+   const selected=packageData.schema.tables.find(t=>t.logicalName===data.logicalName);
+   const attrs=await pages("EntityDefinitions(LogicalName='"+assertName(data.logicalName)+"')/Attributes?$select=LogicalName,AttributeType,IsValidForCreate,IsValidForUpdate,IsValidForRead",2000);
+   const allowed=new Set(attrs.filter(a=>safeTypes.has(a.AttributeType)&&a.IsValidForCreate===true&&a.IsValidForUpdate===true).map(a=>a.LogicalName));
+   for(const name of selected.fields)if(!allowed.has(name))throw Error('Target column not supported for create/update: '+data.logicalName+'.'+name);
+   let sampleExisting=0,sampleMissing=0;
+   for(const r of data.rows.slice(0,5)){
+    try{await read(data.entitySetName+'('+r[data.primaryId]+')?$select='+data.primaryId);sampleExisting++}
+    catch(e){if(/^Dataverse 404/.test(e.message))sampleMissing++;else throw e}
+   }
+   rows.push({table:data.logicalName,records:data.rows.length,existing:sampleExisting,missing:sampleMissing});
+  }
+  const box=$('import-summary');box.replaceChildren();
+  const summary=el('div',{className:'callout success'},'Preflight passed for '+rows.length+' table(s), '+total+' records. Create/update estimates use only the first five records per table.');
+  box.appendChild(summary);
+  const table=el('table');const head=el('tr');for(const t of ['Table','Rows','Sample existing','Sample new'])head.appendChild(el('th',{},t));table.appendChild(head);
+  for(const r of rows){const tr=el('tr');for(const value of [r.table,r.records,r.existing,r.missing])tr.appendChild(el('td',{},value));table.appendChild(tr)}box.appendChild(table);
+  if(packageData.sourceHost===sourceHost)box.appendChild(el('div',{className:'callout'},'Warning: package source hostname equals this target. The import is blocked in beta to prevent accidental source-environment modifications.'));
+  preflight=true;updateWriteState();note('Target validation completed without writing data.','success');
+ }catch(e){note('Target validation failed: '+e.message,'error');$('import-summary').textContent='Validation failed: '+e.message}
+ finally{$('validate-import').disabled=false}
+}
+function updateWriteState(){
+ const confirmed=['confirm-backup','confirm-impact','confirm-lookup'].every(id=>$(id).checked);
+ $('perform-import').disabled=!(preflight&&clientUrl&&packageData&&packageData.sourceHost!==sourceHost&&$('confirm-host').value.trim().toLowerCase()===sourceHost.toLowerCase()&&confirmed);
+}
+async function performImport(){
+ if($('perform-import').disabled||!preflight||!clientUrl)return;
+ abortRequested=false;$('perform-import').disabled=true;$('stop-import').disabled=false;$('import-log').textContent='';activity=[];
+ let ok=0,failed=0;
+ try{
+  for(const t of packageData.tables){
+   const schemaTable=packageData.schema.tables.find(x=>x.logicalName===t.logicalName);
+   for(const record of t.rows){
+    if(abortRequested){log('import-log','Stopped by user after '+(ok+failed)+' records.');return}
+    const id=record[t.primaryId],body={};
+    for(const name of schemaTable.fields)if(Object.prototype.hasOwnProperty.call(record,name))body[name]=record[name];
+    try{
+     await write(t.entitySetName+'('+id+')',body);
+     ok++;log('import-log','OK '+t.logicalName+' '+id);
+    }catch(e){failed++;log('import-log','FAILED '+t.logicalName+' '+id+': '+e.message)}
+   }
+  }
+  log('import-log','Completed. '+ok+' upsert(s) succeeded; '+failed+' failed. Review the activity log and target data.');
+ }finally{$('stop-import').disabled=true;preflight=false;updateWriteState()}
+}
+$('load-tables').addEventListener('click',()=>loadCatalogue().catch(e=>note(e.message,'error')));
+$('add-table').addEventListener('click',addTable);
+$('save-schema').addEventListener('click',()=>{try{if(!schema.tables.length)throw Error('Add a table first');validateSchema(schema);download('mightora-config-schema.json',schema)}catch(e){note(e.message,'error')}});
+$('load-schema-btn').addEventListener('click',()=>$('load-schema').click());
+async function readFile(input){const f=input.files[0];if(!f)return null;if(f.size>12*1024*1024)throw Error('File must not exceed 12MB in beta');return JSON.parse(await f.text())}
+$('load-schema').addEventListener('change',async e=>{try{const doc=await readFile(e.target);if(!doc)return;schema=validateSchema(doc);renderSchema();note('Schema loaded. Refresh the table/column metadata before trusting it.','success')}catch(err){note(err.message,'error')}finally{e.target.value=''}});
+$('reset-schema').addEventListener('click',()=>{schema={format:SCHEMA_TYPE,version:1,tables:[]};renderSchema()});
+$('export-data').addEventListener('click',exportData);
+$('download-sample').addEventListener('click',()=>download('mightora-config-demo.json',samplePackage()));
+$('import-file').addEventListener('change',async e=>{preflight=false;updateWriteState();try{const d=await readFile(e.target);if(!d)return;const total=parsePackage(d);packageData=d;const box=$('import-summary');box.replaceChildren();box.appendChild(el('div',{className:'callout'},'Loaded '+d.tables.length+' table(s) and '+total+' record(s), exported on '+d.createdAt+' from '+d.sourceHost+'. No changes have been made.'));$('validate-import').disabled=!clientUrl;note('Mightora data package loaded. Validate in the target environment.','success')}catch(err){packageData=null;$('validate-import').disabled=true;note(err.message,'error')}});
+$('validate-import').addEventListener('click',validateImport);
+$('confirm-host').addEventListener('input',updateWriteState);
+for(const id of ['confirm-backup','confirm-impact','confirm-lookup'])$(id).addEventListener('change',updateWriteState);
+$('perform-import').addEventListener('click',performImport);
+$('stop-import').addEventListener('click',()=>{abortRequested=true;log('import-log','Stop requested — finishing current request.')});
+$('download-log').addEventListener('click',()=>download('mightora-config-import-log.json',activity));
+if(demo){loadCatalogue().catch(()=>{});note('Sample mode — no source data is read and no writes are possible.','success')}
+else if(!clientUrl)note('This page needs a model-driven app Dataverse session. Add ?demo=1 to the URL for an interactive sample preview.','error');
+renderSchema();
+return {samplePackage,parsePackage,validateSchema};
+})();
+</script></body></html>
