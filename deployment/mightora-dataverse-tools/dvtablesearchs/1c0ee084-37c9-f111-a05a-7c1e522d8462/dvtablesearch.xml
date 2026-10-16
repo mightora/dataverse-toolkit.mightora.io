@@ -1,0 +1,11 @@
+<dvtablesearch dvtablesearchid="1c0ee084-37c9-f111-a05a-7c1e522d8462">
+  <appmoduleuniquename>mightora_MightoraDataverseTools</appmoduleuniquename>
+  <iscustomizable>1</iscustomizable>
+  <m365appmoduleid>
+    <uniquename>mightora_MightoraDataverseTools</uniquename>
+  </m365appmoduleid>
+  <name>M365_Primary_model_mightora_MightoraDataverseTools</name>
+  <searchtype>0</searchtype>
+  <statecode>1</statecode>
+  <statuscode>2</statuscode>
+</dvtablesearch>
