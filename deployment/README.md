@@ -1,26 +1,43 @@
-# Model-driven app integration (v0.3 beta)
+# Deployment source and web-resource bundle (Public Beta v0.4)
 
-The repository includes a declarative list of all eleven intended model-driven app pages in [app-navigation.json](app-navigation.json).
+This repository has two **different** concepts:
 
-The new page is **Configuration Migration Studio**:
-- HTML source: `webresources/mgt_migration.html`
-- Web resource logical name: `mgt_/migration.html`
-- App: `mgt_DataverseToolkit`
-- Section: **Data Management**
-- Access: restricted to authorised migration administrators, because it can perform writes.
+- deployment/mightora-dataverse-tools/ — currently a folder containing
+  fourteen flat HTML resources, README, licence and a JSON manifest.
+- deployment/mightora-dataverse-tools.zip — a ZIP of those files.
 
-## Maker setup
-1. Open a **development Dataverse environment** using Power Apps.
-2. Ensure solution components for the existing ten tools are imported or already present.
-3. Create HTML web resource `mgt_/migration.html` from the downloaded HTML in the **same unmanaged solution**.
-4. Edit the model-driven app `mgt_DataverseToolkit`. Add a new web-resource page and select `mgt_/migration.html`. Name it **Configuration Migration Studio** under Data Management.
-5. Publish and test with deliberately limited test data and a non-production account.
-6. Make sure appropriate role-based app access and Dataverse privileges are applied; a hidden navigation item alone is **not** a security boundary.
-7. Export the solution from Dataverse via standard ALM. Import it into a clean development environment before calling the solution a supported download.
+**Neither is currently a PAC-unpacked Dataverse unmanaged solution.**
+The uploaded archive was inspected and did not contain Other/Solution.xml,
+Other/Customizations.xml, a Dataverse app module or root component metadata.
+A ZIP of HTML files cannot be imported as a Power Apps solution, even if its
+contents were compressed using standard packaging tools.
 
-**Status:** Source and navigation plan prepared, not yet installed into a connected Dataverse instance. A Microsoft-generated, successfully import-tested solution ZIP remains outstanding.
+The web resource content itself is now synchronized with the maintained
+source files, including REST, FetchFlow and Solution Explorer from pinned
+upstream Mightora repositories. The root-level Microsoft helper path has
+been fixed in the original eleven tools.
 
-## Cross-environment usage
-Run this same page in the source environment to export a Mightora JSON data package. Download it to a secure storage location. Then open the page in the target environment, upload the JSON, validate the target schema, enter the exact target hostname and complete the safety confirmations. Source and target must each host this HTML web resource.
+The declarative app-navigation.json now describes fourteen intended
+app pages using flat names such as mgt_rest.html, but it is **not a
+deployed app module**.
 
-No external token brokers, Azure Functions or cross-tenant authentication are required for this workflow; the browser uses the current model-driven app session in each environment.
+## How to produce a real unmanaged solution
+
+1. Import these HTML resources one-by-one into an unmanaged development
+   solution using Power Apps, or update the existing solution web resources.
+2. Add the three new pages to the actual model-driven app navigation and
+   test each tool in that environment.
+3. Export the genuine unmanaged solution ZIP from Dataverse.
+4. Run the Microsoft PAC CLI:
+   pac solution unpack --zipfile exported.zip --folder real-unpacked --packagetype Unmanaged
+5. Verify Other/Solution.xml and Other/Customizations.xml (or an approved
+   native Dataverse YAML solution structure).
+6. Future updates can then use:
+   pac solution pack --folder real-unpacked --zipfile updated-unmanaged.zip --packagetype Unmanaged
+
+See docs/INSTALL.md and docs/DATAVERSE_CONNECTIONS.md for setup and
+read-only API troubleshooting.
+
+The REST and Configuration Migration tools can write records. Gate
+environment access through genuine Dataverse security permissions.
+No Cloudflare beacon is present in any packaged HTML web resource.
