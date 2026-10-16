@@ -77,7 +77,7 @@ function sampleData(){return [
  {label:'Active Accounts',sub:'account',extra:'Public system view',raw:{name:'Active Accounts',returnedtypecode:'account',fetchxml:'<fetch><entity name="account"><attribute name="name" /></entity></fetch>',layoutxml:'<grid name="resultset" />'}},
  {label:'My Contacts',sub:'contact',extra:'Public system view',raw:{name:'My Contacts',returnedtypecode:'contact',fetchxml:'<fetch><entity name="contact" /></fetch>'}}]}
 async function liveData(){
- const d=await api.pages('savedqueries?$select=savedqueryid,name,returnedtypecode,fetchxml,layoutxml,querytype,modifiedon&$orderby=modifiedon%20desc&$top=200',500);
+ const d=await api.pages('savedqueries?$select=savedqueryid,name,returnedtypecode,fetchxml,layoutxml,querytype,modifiedon&$orderby=modifiedon%20desc',500);
  return d.map(r=>({label:r.name||'(unnamed)',sub:r.returnedtypecode||'',extra:'Query type '+r.querytype,raw:r}));
 }
 function onDownload(item){
