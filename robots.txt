@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dataverse-tools.mightora.io/sitemap.xml
