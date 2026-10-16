@@ -1,0 +1,64 @@
+name: Vendor Mightora Dataverse web resources
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/sync_upstream_dataverse.py'
+      - '.github/workflows/vendor-dataverse.yml'
+permissions:
+  contents: write
+jobs:
+  vendor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/checkout@v4
+        with:
+          repository: mightora/rest.mightora.io
+          ref: 66d0b5cd45ef494dfadee24454fb4bb373569149
+          path: upstream/rest
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: mightora/fetchflow.mightora.io
+          ref: 000bb5868f7bf8c5731af09eb01e1bcf1f54e1e4
+          path: upstream/fetchflow
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: mightora/solution-explorer.mightora.io
+          ref: 7157e2d37445ae35e93a36d6d5a8f2b4393276fc
+          path: upstream/solution-explorer
+          persist-credentials: false
+      - name: Build original REST Studio Dataverse edition
+        run: cd upstream/rest && python3 scripts/build.py
+      - name: Build original FetchFlow Dataverse edition
+        run: cd upstream/fetchflow && node scripts/build.cjs
+      - name: Build original Solution Explorer Dataverse edition
+        run: cd upstream/solution-explorer && node scripts/build.mjs
+      - name: Import three Dataverse editions into toolkit
+        run: python3 scripts/sync_upstream_dataverse.py
+      - name: Validate flat web-resource packaging
+        run: python3 scripts/test_vendor_pack.py
+      - name: Commit updated web resources and release bundle
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add webresources/mgt_rest.html webresources/mgt_fetchflow.html webresources/mgt_solution_explorer.html
+          git add deployment/mightora-dataverse-tools/
+          git add deployment/mightora-dataverse-tools.zip deployment/mightora-dataverse-tools-webresources.zip
+          if ! git diff --cached --quiet; then
+            git commit -m "build: sync pinned REST, FetchFlow and Solution Explorer Dataverse editions"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
