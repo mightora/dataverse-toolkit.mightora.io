@@ -1,0 +1,101 @@
+{
+  "format": "mightora-model-driven-app-navigation",
+  "version": 1,
+  "appUniqueName": "mgt_DataverseToolkit",
+  "status": "declarative-navigation-plan-not-deployed",
+  "resources": [
+    {
+      "title": "Plugin Trace Explorer",
+      "group": "Diagnostics",
+      "pageType": "webresource",
+      "webResourceName": "mgt_/trace.html",
+      "source": "webresources/mgt_trace.html",
+      "intendedPrivileges": "read"
+    },
+    {
+      "title": "Metadata Explorer",
+      "group": "Development",
+      "pageType": "webresource",
+      "webResourceName": "mgt_/metadata.html",
+      "source": "webresources/mgt_metadata.html",
+      "intendedPrivileges": "read"
+    },
+    {
+      "title": "FetchXML Studio",
+      "group": "Development",
+      "pageType": "webresource",
+      "webResourceName": "mgt_/fetchxml.html",
+      "source": "webresources/mgt_fetchxml.html",
+      "intendedPrivileges": "read"
+    },
+    {
+      "title": "Record Counter",
+      "group": "Diagnostics",
+      "pageType": "webresource",
+      "webResourceName": "mgt_/counter.html",
+      "source": "webresources/mgt_counter.html",
+      "intendedPrivileges": "read"
+    },
+    {
+      "title": "Solution Inspector",
+      "group": "Development",
+      "pageType": "webresource",
+      "webResourceName": "mgt_/solutions.html",
+      "source": "webresources/mgt_solutions.html",
+      "intendedPrivileges": "read"
+    },
+    {
+      "title": "Relationship Visualiser",
+      "group": "Development",
+      "pageType": "webresource",
+      "webResourceName": "mgt_/relationships.html",
+      "source": "webresources/mgt_relationships.html",
+      "intendedPrivileges": "read"
+    },
+    {
+      "title": "Web Resource Browser",
+      "group": "Development",
+      "pageType": "webresource",
+      "webResourceName": "mgt_/webresources.html",
+      "source": "webresources/mgt_webresources.html",
+      "intendedPrivileges": "read"
+    },
+    {
+      "title": "View Query Inspector",
+      "group": "Development",
+      "pageType": "webresource",
+      "webResourceName": "mgt_/views.html",
+      "source": "webresources/mgt_views.html",
+      "intendedPrivileges": "read"
+    },
+    {
+      "title": "Security Role Catalogue",
+      "group": "Administration",
+      "pageType": "webresource",
+      "webResourceName": "mgt_/security.html",
+      "source": "webresources/mgt_security.html",
+      "intendedPrivileges": "read"
+    },
+    {
+      "title": "Environment Diagnostics",
+      "group": "Administration",
+      "pageType": "webresource",
+      "webResourceName": "mgt_/environment.html",
+      "source": "webresources/mgt_environment.html",
+      "intendedPrivileges": "read"
+    },
+    {
+      "title": "Configuration Migration Studio",
+      "group": "Data Management",
+      "pageType": "webresource",
+      "webResourceName": "mgt_/migration.html",
+      "source": "webresources/mgt_migration.html",
+      "intendedPrivileges": "read/write"
+    }
+  ],
+  "notes": [
+    "Add the migration page in the Power Apps model-driven app designer after importing the HTML web resource.",
+    "The beta migration page performs guarded Dataverse upsert PATCH requests; expose its navigation entry only to authorised administrators.",
+    "This manifest does not itself modify an app or generate an import-tested solution ZIP."
+  ]
+}
