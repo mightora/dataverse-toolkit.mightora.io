@@ -24,6 +24,8 @@ jobs:
         run: python tests/test_release.py
       - name: Validate browser JavaScript and telemetry isolation
         run: python tests/test_scripts.py
+      - name: Test Dataverse context resolution (root, virtual folders, versioned URLs)
+        run: node tests/context-loader.test.cjs
       - name: Validate configuration migration safety checks
         run: python tests/test_migration.py
       - name: Run Configuration Migration Studio behaviour tests
