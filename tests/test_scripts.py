@@ -5,7 +5,7 @@ import subprocess, tempfile
 
 root=Path(__file__).resolve().parents[1]
 resources=sorted((root/'dist'/'webresources').glob('mgt_*.html'))
-assert len(resources)==10, f'Expected 10 resources, got {len(resources)}'
+assert len(resources)==11, f'Expected 11 resources, got {len(resources)}'
 class Inline(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -34,4 +34,4 @@ for resource in resources:
             path.write_text(script,encoding='utf-8')
             res=subprocess.run(['node','--check',str(path)],capture_output=True,text=True)
             assert res.returncode==0, f'{resource.name}: {res.stderr}'
-print('All 10 beta web resources passed script syntax and telemetry checks.')
+print('All 11 beta web resources passed script syntax and telemetry checks.')

@@ -2,7 +2,7 @@
 
 Website: https://dataverse-tools.mightora.io/
 
-Ten read-only HTML web resources for Microsoft Dataverse model-driven applications. Download from the site, or install files under webresources/ in an unmanaged solution.
+Eleven browser-based HTML web resources for Microsoft Dataverse model-driven applications. Download from the site, or install files under webresources/ in an unmanaged solution.
 
 - Plugin Trace Explorer: `mgt_/trace.html` (`webresources/mgt_trace.html`)
 - Metadata Explorer: `mgt_/metadata.html` (`webresources/mgt_metadata.html`)
@@ -30,3 +30,11 @@ The public site at dataverse-tools.mightora.io uses a verified Cloudflare Web An
 Some tools return only the first API pages. The Security Role Catalogue does not calculate effective privileges, and View Inspector currently lists system views. The combined Dataverse solution is still experimental and must be imported, tested and exported from an actual Dataverse development environment.
 
 [Beta audit and known limitations](docs/BETA_AUDIT.md)
+
+## Configuration Migration Studio (public beta v0.3)
+- Individual HTML web resource: `webresources/mgt_migration.html`; suggested Dataverse name: `mgt_/migration.html`.
+- Define editable schema selections for supported scalar fields, export paged configuration records to Mightora JSON, run a target preflight and cautiously upsert records using their existing GUIDs.
+- **This tool performs writes when explicitly authorised**; the other ten utilities are read-only.
+- It does **not** read Microsoft's Configuration Migration ZIP/XML files, automatically resolve lookups, migrate relationships, disable plugins, remap users, match configurable natural keys or preserve every attribute type.
+- See [capability comparison and safe deployment instructions](docs/CONFIGURATION_MIGRATION.md).
+- To add it to the combined **model-driven app**, add `mgt_/migration.html` as a new page and include it in the application's solution. A verified managed Dataverse solution ZIP has not yet been produced.
