@@ -32,6 +32,17 @@ for slug, source in SOURCES.items():
         raise SystemExit(f"Incomplete Dataverse web resource: {slug}")
     if "beacon.min.js" in content or "data-cf-beacon" in content:
         raise SystemExit(f"Unexpected telemetry in Dataverse resource: {slug}")
+    # Visible beta classification is added without modifying executable scripts,
+    # avoiding invalidating the generated cryptographic script/style CSP hashes.
+    if "Public Beta" not in content:
+        import re
+        content, count = re.subn(
+            r"(<body\\b[^>]*>)",
+            r'\\1<aside role="status" class="beta-banner"><strong>Public Beta</strong> — This Dataverse tool is still under testing; verify results and only use write actions in a development environment.</aside>',
+            content, count=1, flags=re.I
+        )
+        if count != 1:
+            raise SystemExit(f"No body element for beta notice in {slug}")
     if slug in ("rest", "fetchflow") and "ClientGlobalContext.js.aspx" not in content:
         raise SystemExit(f"Missing global context helper: {slug}")
     for path in (RESOURCES / f"mgt_{slug}.html", DEPLOY / f"mgt_{slug}.html"):
