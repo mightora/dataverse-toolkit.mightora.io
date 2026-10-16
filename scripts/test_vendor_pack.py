@@ -33,4 +33,42 @@ for archive in (ROOT/"deployment/mightora-dataverse-tools.zip",
         for slug in slugs:
             filename=f"mgt_{slug}.html"
             assert bundle.read(filename)==(DEPLOY/filename).read_bytes()
+
+# Validate HTML inline JavaScript before allowing the build bot to commit.
+# This catches broken regex literals or incomplete bundling before GitHub Pages.
+from html.parser import HTMLParser
+import subprocess
+import tempfile
+
+class InlineScripts(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.collect = False
+        self.blocks = []
+    def handle_starttag(self, tag, attrs):
+        if tag == "script":
+            self.collect = not any(key == "src" for key, _ in attrs)
+            if self.collect:
+                self.blocks.append("")
+    def handle_data(self, data):
+        if self.collect:
+            self.blocks[-1] += data
+    def handle_endtag(self, tag):
+        if tag == "script":
+            self.collect = False
+
+for slug in slugs:
+    doc = (DEPLOY / f"mgt_{slug}.html").read_text(encoding="utf-8")
+    parser = InlineScripts()
+    parser.feed(doc)
+    with tempfile.TemporaryDirectory() as folder:
+        for ix, code in enumerate(parser.blocks):
+            if not code.strip():
+                continue
+            script_path = Path(folder) / f"inline-{ix}.js"
+            script_path.write_text(code, encoding="utf-8")
+            result = subprocess.run(["node", "--check", str(script_path)],
+                                    capture_output=True, text=True)
+            assert result.returncode == 0, f"{slug} inline script {ix}: {result.stderr}"
+
 print("14 synced web resources, original upstream editions, no tracking, and bundle integrity passed.")
