@@ -14,7 +14,7 @@ for filename in ("index.html", "CNAME", "robots.txt", "sitemap.xml"):
     shutil.copy2(root / filename, dist / filename)
 (dist / ".nojekyll").touch()
 
-tools = ("trace", "metadata", "fetchxml", "counter", "solutions", "relationships", "webresources", "views", "security", "environment", "migration")
+tools = ("trace", "metadata", "fetchxml", "counter", "solutions", "relationships", "webresources", "views", "security", "environment", "migration", "rest", "fetchflow", "solution_explorer")
 for slug in tools:
     source = root / "webresources" / f"mgt_{slug}.html"
     content = source.read_text(encoding="utf-8")
