@@ -22,6 +22,8 @@ jobs:
         run: python scripts/build_release.py
       - name: Verify download packages
         run: python tests/test_release.py
+      - name: Validate browser JavaScript and telemetry isolation
+        run: python tests/test_scripts.py
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -9,6 +9,13 @@ Create an unmanaged solution using your preferred publisher in a Dataverse devel
 - `mgt_/solutions.html`
 - `mgt_/relationships.html`
 
-Create a model-driven app, add the six web resources as pages, publish, and validate. Export a managed solution via Power Apps or the Power Platform CLI after environment testing.
+Create a model-driven app, add the ten web resources as pages, publish, and validate. Export a managed solution via Power Apps or the Power Platform CLI after environment testing.
 
 The experimental combined solution created during prototyping was manually authored and has NOT been import-tested. Do not use in production without validation.
+
+
+Additional Public Beta HTML web resources:
+- `mgt_/webresources.html`
+- `mgt_/views.html`
+- `mgt_/security.html`
+- `mgt_/environment.html`
