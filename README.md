@@ -28,3 +28,5 @@ The public site at dataverse-tools.mightora.io uses a verified Cloudflare Web An
 
 ## Limitations
 Some tools return only the first API pages. The Security Role Catalogue does not calculate effective privileges, and View Inspector currently lists system views. The combined Dataverse solution is still experimental and must be imported, tested and exported from an actual Dataverse development environment.
+
+[Beta audit and known limitations](docs/BETA_AUDIT.md)
