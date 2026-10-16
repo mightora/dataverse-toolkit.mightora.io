@@ -3,9 +3,12 @@
 <title>Configuration Migration Studio | Mightora Dataverse Tools</title>
 <meta name="description" content="Mightora Configuration Migration Studio beta. Build reusable schemas, export Dataverse configuration records, validate an import plan and run guarded GUID-based upserts in a model-driven app.">
 <script>
-/* Available within Dataverse web resource context; never injected in the public demo. */
+/* Microsoft context path supports both flat HTML and mgt_/virtual folder names. */
 if(location.protocol!=='file:' && new URLSearchParams(location.search).get('demo')!=='1'){
-  document.write('<script src="../ClientGlobalContext.js.aspx"><\/script>');
+  const segments=decodeURIComponent(location.pathname).split(/\/webresources\//i);
+  const name=segments.length>1?segments[segments.length-1]:'';
+  const depth=Math.min(8,(name.match(/\//g)||[]).length);
+  document.write('<script src="'+ '../'.repeat(depth) + 'ClientGlobalContext.js.aspx"><\/script>');
 }
 </script><style>
 :root{--navy:#0b2a40;--navy2:#114463;--aqua:#15aca5;--bg:#f3f7fa;--ink:#142e42;--muted:#5b6c7e;--line:#d8e2e9;--good:#147555;--warn:#ad6810;--bad:#bc3535;--surface:white;font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light}
