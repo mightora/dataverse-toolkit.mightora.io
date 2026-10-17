@@ -13,7 +13,7 @@ Fourteen browser-based HTML web resources for Microsoft Dataverse model-driven a
 
 Hosted previews use sample data; live data access requires an authenticated Dataverse session. These are early prototypes, not replacements with full XrmToolBox feature parity.
 
-The original hand-built combined model-driven app solution candidate is not import-verified and is not released as a production installer. See docs/INSTALL.md. Open-source under MIT. No backend, token or client secret required.
+A genuine PAC-packed **unmanaged model-driven app solution v1.0.0.3** is available at [deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip](deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip). It contains all 14 HTML web resources, the original app identity and five navigation groups. Import and live-operation tests in an actual Dataverse development environment are still outstanding. See docs/INSTALL.md. Open-source under MIT; no additional backend, token or client secret required.
 
 ## Public Beta v0.2
 These tools are still undergoing tests and are not production-certified. Report bugs at https://github.com/mightora/dataverse-toolkit.mightora.io/issues.
@@ -54,3 +54,13 @@ The upstream editions are built from pinned source revisions in .github/workflow
 **Important packaging distinction:** deployment/mightora-dataverse-tools.zip is a **web-resource bundle**, not a Microsoft Dataverse unmanaged solution. Its files contain no actual solution manifest or model-driven app definition. The declarative app-navigation.json describes where the tools should appear but cannot install them. Export an authentic unmanaged solution with all fourteen web resources and the app definition from Power Apps before pac solution pack or import is possible. Do not describe the web-resource bundle as a Dataverse solution ZIP.
 
 All tools remain **Public Beta**. Live tenant connectivity and installation have not been validated here. No Cloudflare beacon runs in Dataverse-hosted web resources; the separate public website uses Cloudflare Web Analytics only.
+
+## Real exported unmanaged solution — 17 October 2026
+
+The user-provided solution v1.0.0.2 had ten genuine installed web resources and an app/sitemap. We preserved the publisher and component IDs, added four missing web resources (REST Studio, FetchFlow, Solution Explorer and Configuration Migration Studio), grouped the navigation into five sections, and repacked it using the **Microsoft Power Platform CLI** as **v1.0.0.3**.
+
+**[Download the actual unmanaged solution](deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip)** (not the older HTML-only distribution ZIP).
+
+CI validates the unpacked source, 14 web resources, absence of Cloudflare tracking inside tenant pages, original role mappings, and the Microsoft-packaged ZIP's root components. The first six tools now reject unauthenticated live operations rather than silently substituting demo records; explicit `?demo=1` remains available for the public site.
+
+**Not yet tested in Dataverse:** import into a tenant, actual role access, web resource navigation and live Web API results. A green packaging check is not proof of those outcomes. Use a non-production environment and the [live test checklist](docs/INSTALL.md).
