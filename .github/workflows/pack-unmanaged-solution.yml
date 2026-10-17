@@ -1,0 +1,62 @@
+name: Pack real Mightora unmanaged Dataverse solution
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/sync_unmanaged_solution.py'
+      - 'tests/test_unmanaged_solution.py'
+      - '.github/workflows/pack-unmanaged-solution.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: pack-mightora-unmanaged
+  cancel-in-progress: false
+jobs:
+  validate-and-pack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out maintained web resources and genuine solution source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Synchronize 14 real tools, stable IDs and 5 app navigation groups
+        run: python scripts/sync_unmanaged_solution.py
+      - name: Verify unpacked solution and connection-path regression
+        run: |
+          python tests/test_unmanaged_solution.py
+          node tests/context-loader.test.cjs
+      - name: Install Microsoft Power Platform CLI
+        uses: microsoft/powerplatform-actions/actions-install@v1
+      - name: Pack using Microsoft Power Platform CLI
+        uses: microsoft/powerplatform-actions/pack-solution@v1
+        with:
+          solution-folder: deployment/mightora-dataverse-tools
+          solution-file: deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip
+          solution-type: Unmanaged
+      - name: Check packed Dataverse solution contents
+        run: python tests/test_unmanaged_solution.py deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip
+      - name: Publish downloadable ZIP as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MightoraDataverseTools-v1.0.0.3-unmanaged-beta
+          path: deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip
+          retention-days: 30
+      - name: Commit genuine unpacked files and packed unmanaged ZIP
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add deployment/mightora-dataverse-tools/
+          git add deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip
+          if ! git diff --cached --quiet; then
+            git commit -m "build: package real 14-tool Mightora unmanaged solution v1.0.0.3"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
