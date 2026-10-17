@@ -30,7 +30,7 @@ jobs:
         run: python tests/test_migration.py
       - name: Run Configuration Migration Studio behaviour tests
         run: node tests/migration.test.cjs
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
       - name: Bundle shared Mightora footer
         uses: mightora/shared-ui/.github/actions/sync-footer@main
         with:
