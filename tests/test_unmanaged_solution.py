@@ -45,6 +45,8 @@ for slug in SLUGS:
     assert len(html)>4000
     assert "beacon.min.js" not in html and "data-cf-beacon" not in html
     assert "Public Beta" in html
+    if slug in ("trace", "metadata", "fetchxml", "counter", "solutions", "relationships"):
+        assert "if(!demo&&!clientUrl)throw Error(" in html, slug + " must not silently fall back to mock data"
     if slug not in ("solution_explorer",):
         assert "ClientGlobalContext.js.aspx" in html
 assert (WEB/"mightora_logo.data.xml").exists()
