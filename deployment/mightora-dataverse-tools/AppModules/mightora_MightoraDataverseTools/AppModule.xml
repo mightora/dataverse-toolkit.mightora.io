@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <AppModule>
   <UniqueName>mightora_MightoraDataverseTools</UniqueName>
   <IntroducedVersion>1.0.0.0</IntroducedVersion>
   <WebResourceId>9c525df1-37c9-f111-a05a-6045bdfc088b</WebResourceId>
-  <OptimizedFor></OptimizedFor>
+  <OptimizedFor />
   <statecode>0</statecode>
   <statuscode>1</statuscode>
   <FormFactor>1</FormFactor>
@@ -20,7 +20,7 @@
     <LocalizedName description="Mightora Dataverse Tools" languagecode="1033" />
   </LocalizedNames>
   <Descriptions>
-    <Description description="Unlock the potential of Dataverse with a suite of tools designed to streamline data management and customization. This app is currently in initial development and will provide essential capabilities for optimizing Dataverse workflows. For more go to https://dataverse-tools.mightora.io/" languagecode="1033" />
+    <Description description="Mightora Dataverse Tools — 14 developer utilities, grouped by capability. Public beta: these tools use real Dataverse API permissions and may expose data. REST Studio and Configuration Migration can modify records when authorised. https://dataverse-tools.mightora.io/" languagecode="1033" />
   </Descriptions>
   <appsettings>
     <appsetting settingdefinitionid.uniquename="AppChannel">

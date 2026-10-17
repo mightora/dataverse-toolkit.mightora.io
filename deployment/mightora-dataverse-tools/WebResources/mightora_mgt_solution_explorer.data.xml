@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<WebResource>
+  <WebResourceId>{eb0efff0-549e-5be9-a564-af6cc8187c7e}</WebResourceId>
+  <Name>mightora_mgt_solution_explorer</Name>
+  <DisplayName>Solution Explorer</DisplayName>
+  <WebResourceType>1</WebResourceType>
+  <IntroducedVersion>1.0.0.3</IntroducedVersion>
+  <IsEnabledForMobileClient>0</IsEnabledForMobileClient>
+  <IsAvailableForMobileOffline>0</IsAvailableForMobileOffline>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <IsHidden>0</IsHidden>
+  <FileName>/WebResources/mightora_mgt_solution_explorerEB0EFFF0-549E-5BE9-A564-AF6CC8187C7E</FileName>
+</WebResource>

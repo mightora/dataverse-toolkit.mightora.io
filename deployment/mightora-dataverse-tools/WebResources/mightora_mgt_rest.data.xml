@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<WebResource>
+  <WebResourceId>{865041b7-3f7f-5656-868e-d7b59dc853d3}</WebResourceId>
+  <Name>mightora_mgt_rest</Name>
+  <DisplayName>REST Studio — Confirm Writes</DisplayName>
+  <WebResourceType>1</WebResourceType>
+  <IntroducedVersion>1.0.0.3</IntroducedVersion>
+  <IsEnabledForMobileClient>0</IsEnabledForMobileClient>
+  <IsAvailableForMobileOffline>0</IsAvailableForMobileOffline>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <IsHidden>0</IsHidden>
+  <FileName>/WebResources/mightora_mgt_rest865041B7-3F7F-5656-868E-D7B59DC853D3</FileName>
+</WebResource>

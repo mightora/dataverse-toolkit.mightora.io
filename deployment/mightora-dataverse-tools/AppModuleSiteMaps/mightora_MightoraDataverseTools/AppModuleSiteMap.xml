@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<AppModuleSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version='1.0' encoding='utf-8'?>
+<AppModuleSiteMap>
   <SiteMapUniqueName>mightora_MightoraDataverseTools</SiteMapUniqueName>
-  <EnableCollapsibleGroups>False</EnableCollapsibleGroups>
+  <EnableCollapsibleGroups>True</EnableCollapsibleGroups>
   <ShowHome>True</ShowHome>
   <ShowPinned>False</ShowPinned>
   <ShowRecents>False</ShowRecents>
@@ -10,59 +10,7 @@
       <Titles>
         <Title LCID="1033" Title="Area1" />
       </Titles>
-      <Group Id="group_d0e0222f" ResourceId="SitemapDesigner.NewGroup" DescriptionResourceId="SitemapDesigner.NewGroup" IntroducedVersion="7.0.0.0" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
-        <SubArea Id="subarea_c8e6b460" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:mightora_mgt_trace" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
-          <Titles>
-            <Title LCID="1033" Title="Plugin Trace Explorer" />
-          </Titles>
-        </SubArea>
-        <SubArea Id="subarea_eaf6414c" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:mightora_mgt_metadata" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
-          <Titles>
-            <Title LCID="1033" Title="Metadata Explorer" />
-          </Titles>
-        </SubArea>
-        <SubArea Id="subarea_f4534670" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:mightora_mgt_fetchxml" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
-          <Titles>
-            <Title LCID="1033" Title="FetchXML Studio" />
-          </Titles>
-        </SubArea>
-        <SubArea Id="subarea_f2b9288f" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:mightora_mgt_counter" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
-          <Titles>
-            <Title LCID="1033" Title="Record Counter" />
-          </Titles>
-        </SubArea>
-        <SubArea Id="subarea_f5200b3c" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:mightora_mgt_solutions" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
-          <Titles>
-            <Title LCID="1033" Title="Solution Inspector" />
-          </Titles>
-        </SubArea>
-        <SubArea Id="subarea_4ec9c183" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:mightora_mgt_relationships" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
-          <Titles>
-            <Title LCID="1033" Title="Relationship Visualiser" />
-          </Titles>
-        </SubArea>
-        <SubArea Id="subarea_ccf4fd26" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:mightora_mgt_webresources" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
-          <Titles>
-            <Title LCID="1033" Title="Web Resource Browser" />
-          </Titles>
-        </SubArea>
-        <SubArea Id="subarea_9e03bcb3" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:mightora_mgt_views" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
-          <Titles>
-            <Title LCID="1033" Title="View Query Inspector" />
-          </Titles>
-        </SubArea>
-        <SubArea Id="subarea_fc7231fa" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:mightora_mgt_security" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
-          <Titles>
-            <Title LCID="1033" Title="Security Role Catalogue" />
-          </Titles>
-        </SubArea>
-        <SubArea Id="subarea_cd3cb106" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:mightora_mgt_environment" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
-          <Titles>
-            <Title LCID="1033" Title="Environment Diagnostics" />
-          </Titles>
-        </SubArea>
-      </Group>
-    </Area>
+      <Group Id="mightora_group_1" IsProfile="false"><Titles><Title LCID="1033" Title="Diagnostics" /></Titles><SubArea Id="mightora_tool_trace" Url="$webresource:mightora_mgt_trace" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA"><Titles><Title LCID="1033" Title="Plugin Trace Explorer" /></Titles></SubArea><SubArea Id="mightora_tool_counter" Url="$webresource:mightora_mgt_counter" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA"><Titles><Title LCID="1033" Title="Record Counter" /></Titles></SubArea><SubArea Id="mightora_tool_environment" Url="$webresource:mightora_mgt_environment" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA"><Titles><Title LCID="1033" Title="Environment Diagnostics" /></Titles></SubArea></Group><Group Id="mightora_group_2" IsProfile="false"><Titles><Title LCID="1033" Title="Tables and data model" /></Titles><SubArea Id="mightora_tool_metadata" Url="$webresource:mightora_mgt_metadata" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA"><Titles><Title LCID="1033" Title="Metadata Explorer" /></Titles></SubArea><SubArea Id="mightora_tool_relationships" Url="$webresource:mightora_mgt_relationships" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA"><Titles><Title LCID="1033" Title="Relationship Visualiser" /></Titles></SubArea><SubArea Id="mightora_tool_views" Url="$webresource:mightora_mgt_views" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA"><Titles><Title LCID="1033" Title="View Query Inspector" /></Titles></SubArea><SubArea Id="mightora_tool_webresources" Url="$webresource:mightora_mgt_webresources" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA"><Titles><Title LCID="1033" Title="Web Resource Browser" /></Titles></SubArea></Group><Group Id="mightora_group_3" IsProfile="false"><Titles><Title LCID="1033" Title="Queries and APIs" /></Titles><SubArea Id="mightora_tool_fetchxml" Url="$webresource:mightora_mgt_fetchxml" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA"><Titles><Title LCID="1033" Title="FetchXML Studio" /></Titles></SubArea><SubArea Id="mightora_tool_fetchflow" Url="$webresource:mightora_mgt_fetchflow" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA"><Titles><Title LCID="1033" Title="FetchFlow Visual Query Builder" /></Titles></SubArea><SubArea Id="mightora_tool_rest" Url="$webresource:mightora_mgt_rest" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA"><Titles><Title LCID="1033" Title="REST Studio — Confirm Writes" /></Titles></SubArea></Group><Group Id="mightora_group_4" IsProfile="false"><Titles><Title LCID="1033" Title="Solutions and migration" /></Titles><SubArea Id="mightora_tool_solutions" Url="$webresource:mightora_mgt_solutions" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA"><Titles><Title LCID="1033" Title="Solution Inspector" /></Titles></SubArea><SubArea Id="mightora_tool_solution_explorer" Url="$webresource:mightora_mgt_solution_explorer" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA"><Titles><Title LCID="1033" Title="Solution Explorer" /></Titles></SubArea><SubArea Id="mightora_tool_migration" Url="$webresource:mightora_mgt_migration" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA"><Titles><Title LCID="1033" Title="Configuration Migration Studio — Writes Data" /></Titles></SubArea></Group><Group Id="mightora_group_5" IsProfile="false"><Titles><Title LCID="1033" Title="Security" /></Titles><SubArea Id="mightora_tool_security" Url="$webresource:mightora_mgt_security" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA"><Titles><Title LCID="1033" Title="Security Role Catalogue" /></Titles></SubArea></Group></Area>
   </SiteMap>
   <LocalizedNames>
     <LocalizedName description="Mightora Dataverse Tools" languagecode="1033" />
