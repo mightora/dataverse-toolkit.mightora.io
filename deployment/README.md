@@ -1,43 +1,65 @@
-# Deployment source and web-resource bundle (Public Beta v0.4)
+# Mightora Dataverse Tools — Real unmanaged app solution v1.0.0.3
 
-This repository has two **different** concepts:
+The user exported the authentic **MightoraDataverseTools** unmanaged solution,
+version 1.0.0.2, and unpacked it into this repository on 16 October 2026.
 
-- deployment/mightora-dataverse-tools/ — currently a folder containing
-  fourteen flat HTML resources, README, licence and a JSON manifest.
-- deployment/mightora-dataverse-tools.zip — a ZIP of those files.
+## Correct importable artifact
 
-**Neither is currently a PAC-unpacked Dataverse unmanaged solution.**
-The uploaded archive was inspected and did not contain Other/Solution.xml,
-Other/Customizations.xml, a Dataverse app module or root component metadata.
-A ZIP of HTML files cannot be imported as a Power Apps solution, even if its
-contents were compressed using standard packaging tools.
+**[MightoraDataverseTools_1_0_0_3_unmanaged.zip](MightoraDataverseTools_1_0_0_3_unmanaged.zip)**
 
-The web resource content itself is now synchronized with the maintained
-source files, including REST, FetchFlow and Solution Explorer from pinned
-upstream Mightora repositories. The root-level Microsoft helper path has
-been fixed in the original eleven tools.
+This ZIP is now packed from the genuine Microsoft-exported source using the
+Microsoft Power Platform CLI. It includes solution.xml, customizations.xml,
+the Mightora model-driven app, SiteMap, logo and 14 web resources.
 
-The declarative app-navigation.json now describes fourteen intended
-app pages using flat names such as mgt_rest.html, but it is **not a
-deployed app module**.
+**It has passed package structure checks, not a real-tenant import test.**
+Do not import to production until the development environment confirms all
+pages and user roles.
 
-## How to produce a real unmanaged solution
+## Unpacked source
 
-1. Import these HTML resources one-by-one into an unmanaged development
-   solution using Power Apps, or update the existing solution web resources.
-2. Add the three new pages to the actual model-driven app navigation and
-   test each tool in that environment.
-3. Export the genuine unmanaged solution ZIP from Dataverse.
-4. Run the Microsoft PAC CLI:
-   pac solution unpack --zipfile exported.zip --folder real-unpacked --packagetype Unmanaged
-5. Verify Other/Solution.xml and Other/Customizations.xml (or an approved
-   native Dataverse YAML solution structure).
-6. Future updates can then use:
-   pac solution pack --folder real-unpacked --zipfile updated-unmanaged.zip --packagetype Unmanaged
+`mightora-dataverse-tools/` is now the authentic XML-based PAC-unpacked
+solution source, *not* merely a folder of flat HTML files. The maintained
+web resource sources live under `../webresources/` and the synchronization
+script `../scripts/sync_unmanaged_solution.py` copies them into the exported
+solution, preserving original ten web resource IDs.
 
-See docs/INSTALL.md and docs/DATAVERSE_CONNECTIONS.md for setup and
-read-only API troubleshooting.
+Five groups are written to the SiteMap:
 
-The REST and Configuration Migration tools can write records. Gate
-environment access through genuine Dataverse security permissions.
-No Cloudflare beacon is present in any packaged HTML web resource.
+1. Diagnostics — Plugin Trace Explorer, Record Counter, Environment Diagnostics
+2. Tables and data model — Metadata Explorer, Relationship Visualiser,
+   View Query Inspector, Web Resource Browser
+3. Queries and APIs — FetchXML Studio, FetchFlow, REST Studio
+4. Solutions and migration — Solution Inspector, Solution Explorer,
+   Configuration Migration Studio
+5. Security — Security Role Catalogue
+
+## Files NOT to import as Dataverse solutions
+
+- `mightora-dataverse-tools.zip` and
+  `mightora-dataverse-tools-webresources.zip` are separate HTML web-resource
+  bundles retained for people manually importing individual tools.
+- `MightoraDataverseTools_1_0_0_2.zip` is the original user-exported
+  unmanaged solution retained as an immutable reference.
+
+## Repack
+
+The GitHub Action
+[pack-unmanaged-solution.yml](../.github/workflows/pack-unmanaged-solution.yml)
+runs the Microsoft PAC solution pack operation and validates the result. To
+rebuild after changes to maintained HTML files, use that workflow or run:
+
+    python scripts/sync_unmanaged_solution.py
+    python tests/test_unmanaged_solution.py
+    pac solution pack --folder deployment/mightora-dataverse-tools --zipfile deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip --packagetype Unmanaged
+    python tests/test_unmanaged_solution.py deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip
+
+## Actual integration testing
+
+Import in a disposable **development** environment. Test the app navigation,
+WhoAmI, metadata, FetchXML, solution export, and user permissions. REST Studio
+and Configuration Migration Studio can modify real data: use disposable
+records only and review plugins/flows. No environment login or token is
+packaged. Cloudflare analytics runs on the public GitHub Pages catalogue
+only, not inside any Dataverse web resource.
+
+Documentation: ../docs/INSTALL.md.
