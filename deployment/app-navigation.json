@@ -1,139 +1,139 @@
 {
   "format": "mightora-model-driven-app-navigation",
-  "version": 2,
-  "appUniqueName": "mgt_DataverseToolkit",
-  "status": "declarative-navigation-plan-not-yet-in-a-real-solution",
+  "version": 3,
+  "appUniqueName": "mightora_MightoraDataverseTools",
+  "status": "implemented-in-genuine-exported-unmanaged-solution-source; import-test-pending",
   "resources": [
     {
       "title": "Plugin Trace Explorer",
       "group": "Diagnostics",
       "pageType": "webresource",
-      "webResourceName": "mgt_trace.html",
+      "webResourceName": "mightora_mgt_trace",
       "source": "webresources/mgt_trace.html",
       "intendedPrivileges": "read",
-      "note": "Installed as a flat HTML web resource; Microsoft context helper loads from the same directory."
+      "note": "In the actual Power Apps exported solution; Dataverse checks and live user privileges still require testing."
     },
     {
       "title": "Metadata Explorer",
-      "group": "Development",
+      "group": "Tables and data model",
       "pageType": "webresource",
-      "webResourceName": "mgt_metadata.html",
+      "webResourceName": "mightora_mgt_metadata",
       "source": "webresources/mgt_metadata.html",
       "intendedPrivileges": "read",
-      "note": "Installed as a flat HTML web resource; Microsoft context helper loads from the same directory."
+      "note": "In the actual Power Apps exported solution; Dataverse checks and live user privileges still require testing."
     },
     {
       "title": "FetchXML Studio",
-      "group": "Development",
+      "group": "Queries and APIs",
       "pageType": "webresource",
-      "webResourceName": "mgt_fetchxml.html",
+      "webResourceName": "mightora_mgt_fetchxml",
       "source": "webresources/mgt_fetchxml.html",
       "intendedPrivileges": "read",
-      "note": "Installed as a flat HTML web resource; Microsoft context helper loads from the same directory."
+      "note": "In the actual Power Apps exported solution; Dataverse checks and live user privileges still require testing."
     },
     {
       "title": "Record Counter",
       "group": "Diagnostics",
       "pageType": "webresource",
-      "webResourceName": "mgt_counter.html",
+      "webResourceName": "mightora_mgt_counter",
       "source": "webresources/mgt_counter.html",
       "intendedPrivileges": "read",
-      "note": "Installed as a flat HTML web resource; Microsoft context helper loads from the same directory."
+      "note": "In the actual Power Apps exported solution; Dataverse checks and live user privileges still require testing."
     },
     {
       "title": "Solution Inspector",
-      "group": "Development",
+      "group": "Solutions and migration",
       "pageType": "webresource",
-      "webResourceName": "mgt_solutions.html",
+      "webResourceName": "mightora_mgt_solutions",
       "source": "webresources/mgt_solutions.html",
       "intendedPrivileges": "read",
-      "note": "Installed as a flat HTML web resource; Microsoft context helper loads from the same directory."
+      "note": "In the actual Power Apps exported solution; Dataverse checks and live user privileges still require testing."
     },
     {
       "title": "Relationship Visualiser",
-      "group": "Development",
+      "group": "Tables and data model",
       "pageType": "webresource",
-      "webResourceName": "mgt_relationships.html",
+      "webResourceName": "mightora_mgt_relationships",
       "source": "webresources/mgt_relationships.html",
       "intendedPrivileges": "read",
-      "note": "Installed as a flat HTML web resource; Microsoft context helper loads from the same directory."
+      "note": "In the actual Power Apps exported solution; Dataverse checks and live user privileges still require testing."
     },
     {
       "title": "Web Resource Browser",
-      "group": "Development",
+      "group": "Tables and data model",
       "pageType": "webresource",
-      "webResourceName": "mgt_webresources.html",
+      "webResourceName": "mightora_mgt_webresources",
       "source": "webresources/mgt_webresources.html",
       "intendedPrivileges": "read",
-      "note": "Installed as a flat HTML web resource; Microsoft context helper loads from the same directory."
+      "note": "In the actual Power Apps exported solution; Dataverse checks and live user privileges still require testing."
     },
     {
       "title": "View Query Inspector",
-      "group": "Development",
+      "group": "Tables and data model",
       "pageType": "webresource",
-      "webResourceName": "mgt_views.html",
+      "webResourceName": "mightora_mgt_views",
       "source": "webresources/mgt_views.html",
       "intendedPrivileges": "read",
-      "note": "Installed as a flat HTML web resource; Microsoft context helper loads from the same directory."
+      "note": "In the actual Power Apps exported solution; Dataverse checks and live user privileges still require testing."
     },
     {
       "title": "Security Role Catalogue",
-      "group": "Administration",
+      "group": "Security",
       "pageType": "webresource",
-      "webResourceName": "mgt_security.html",
+      "webResourceName": "mightora_mgt_security",
       "source": "webresources/mgt_security.html",
       "intendedPrivileges": "read",
-      "note": "Installed as a flat HTML web resource; Microsoft context helper loads from the same directory."
+      "note": "In the actual Power Apps exported solution; Dataverse checks and live user privileges still require testing."
     },
     {
       "title": "Environment Diagnostics",
-      "group": "Administration",
+      "group": "Diagnostics",
       "pageType": "webresource",
-      "webResourceName": "mgt_environment.html",
+      "webResourceName": "mightora_mgt_environment",
       "source": "webresources/mgt_environment.html",
       "intendedPrivileges": "read",
-      "note": "Installed as a flat HTML web resource; Microsoft context helper loads from the same directory."
+      "note": "In the actual Power Apps exported solution; Dataverse checks and live user privileges still require testing."
     },
     {
       "title": "Configuration Migration Studio",
-      "group": "Data Management",
+      "group": "Solutions and migration",
       "pageType": "webresource",
-      "webResourceName": "mgt_migration.html",
+      "webResourceName": "mightora_mgt_migration",
       "source": "webresources/mgt_migration.html",
       "intendedPrivileges": "read/write",
-      "note": "Installed as a flat HTML web resource; Microsoft context helper loads from the same directory."
+      "note": "In the actual Power Apps exported solution; Dataverse checks and live user privileges still require testing."
     },
     {
       "title": "REST Studio",
-      "group": "Data Management",
+      "group": "Queries and APIs",
       "pageType": "webresource",
-      "webResourceName": "mgt_rest.html",
+      "webResourceName": "mightora_mgt_rest",
       "source": "webresources/mgt_rest.html",
       "intendedPrivileges": "read/write",
-      "note": "Use role-based access and explicit write confirmation"
+      "note": "In the actual Power Apps exported solution; Dataverse checks and live user privileges still require testing."
     },
     {
       "title": "FetchFlow Visual Query Builder",
-      "group": "Development",
+      "group": "Queries and APIs",
       "pageType": "webresource",
-      "webResourceName": "mgt_fetchflow.html",
+      "webResourceName": "mightora_mgt_fetchflow",
       "source": "webresources/mgt_fetchflow.html",
       "intendedPrivileges": "read",
-      "note": "Read-only metadata and FetchXML queries"
+      "note": "In the actual Power Apps exported solution; Dataverse checks and live user privileges still require testing."
     },
     {
       "title": "Solution Explorer",
-      "group": "Development",
+      "group": "Solutions and migration",
       "pageType": "webresource",
-      "webResourceName": "mgt_solution_explorer.html",
+      "webResourceName": "mightora_mgt_solution_explorer",
       "source": "webresources/mgt_solution_explorer.html",
       "intendedPrivileges": "export/read",
-      "note": "May export unmanaged solutions and view sensitive metadata"
+      "note": "In the actual Power Apps exported solution; Dataverse checks and live user privileges still require testing."
     }
   ],
   "notes": [
-    "This is a navigation plan, NOT an app definition or Dataverse-importable solution.",
-    "Uploaded ZIP only contains flat HTML web resources; root-level loader now uses ClientGlobalContext.js.aspx.",
-    "Install these 14 resources in a real unmanaged solution, add app pages in the maker designer, then export and pac unpack/pack the genuine solution."
+    "The real unpacked solution is deployment/mightora-dataverse-tools; the importable PAC-packed ZIP is deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip.",
+    "Five navigation groups, fourteen real HTML web resources, and existing app identity are included.",
+    "Do not use the older deployment/mightora-dataverse-tools.zip; that file is the separate web-resource bundle."
   ]
 }
