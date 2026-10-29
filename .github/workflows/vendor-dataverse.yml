@@ -12,7 +12,7 @@ jobs:
   vendor:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           persist-credentials: true
@@ -22,19 +22,19 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: mightora/rest.mightora.io
           ref: 66d0b5cd45ef494dfadee24454fb4bb373569149
           path: upstream/rest
           persist-credentials: false
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: mightora/fetchflow.mightora.io
           ref: 3afc046ee40373ce23f37396dabd0db9aa53b192
           path: upstream/fetchflow
           persist-credentials: false
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: mightora/solution-explorer.mightora.io
           ref: 7157e2d37445ae35e93a36d6d5a8f2b4393276fc
