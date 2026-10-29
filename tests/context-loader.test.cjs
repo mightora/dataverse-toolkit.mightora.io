@@ -8,7 +8,7 @@ const assert=require('node:assert/strict');
 
 const project=path.resolve(__dirname,'..');
 const slugs=['trace','metadata','fetchxml','counter','solutions','relationships',
-             'webresources','views','security','environment','migration'];
+             'webresources','views','security','environment','migration','insights'];
 for(const slug of slugs){
  const file=path.join(project,'webresources','mgt_'+slug+'.html');
  const html=fs.readFileSync(file,'utf8');

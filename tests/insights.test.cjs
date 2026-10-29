@@ -1,0 +1,28 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const html=fs.readFileSync('webresources/mgt_insights.html','utf8');
+const ctx=vm.createContext({});vm.runInContext(html.match(/<script id="insights-core">([\s\S]*?)<\/script>/)[1],ctx);
+const {cleanResource,findings,compareSnapshots,csvValue,collectPages,collectInventory}=ctx;
+(async()=>{
+ const resource=cleanResource({name:'app',type:'microsoft.powerapps/canvasapps',properties:{displayName:'Example',clientSecret:'never-export',isQuarantined:true}},'inventory');
+ assert(!JSON.stringify(resource).includes('never-export'));
+ assert(findings([resource]).some(f=>f.title==='Owner not returned'));
+ assert(findings([resource]).some(f=>f.title==='Quarantined resource'));
+ assert(!findings([resource]).some(f=>/unused|inactive/i.test(f.title)));
+ assert.equal(csvValue('=HYPERLINK("bad")'),'"\'=HYPERLINK(""bad"")"');
+ let requests=[];const pages=await collectPages(async url=>{requests.push(url);return url==='first'?{value:[{id:1}],'@odata.nextLink':'second'}:{value:[{id:2}]};},'first');
+ assert.equal(pages.rows.length,2);assert.equal(pages.partial,false);assert.deepEqual(requests,['first','second']);
+ await assert.rejects(()=>collectPages(async()=>({value:[],'@odata.nextLink':'first'}),'first'),/Repeated/);
+ await assert.rejects(()=>collectPages(async()=>{throw Error('403');},'first'),/403/);
+ let calls=0;const inventory=await collectInventory(async body=>{calls++;assert.equal(body.TableName,'PowerPlatformResources');return body.Options.SkipToken?{data:[{id:2}]}:{data:[{id:1}],skipToken:'next'};});
+ assert.equal(inventory.rows.length,2);assert.equal(calls,2);
+ assert.equal((await collectInventory(async()=>({data:[],resultTruncated:1}))).partial,true);
+ const snap={scope:'Environment',context:'org',demo:false,coverage:[{status:'Loaded'}],resources:[resource]};
+ const newer={...snap,resources:[{...resource,name:'Changed'}]};assert.equal(compareSnapshots(snap,newer)[0].change,'Changed');
+ assert.throws(()=>compareSnapshots(snap,{...newer,context:'other'}),/same scope/);
+ assert.throws(()=>compareSnapshots(snap,{...newer,coverage:[{status:'Unavailable'}]}),/completed/);
+ assert.throws(()=>compareSnapshots(snap,{...newer,demo:true}),/sample\/live/);
+ assert(!/localStorage|sessionStorage|client_secret|innerHTML/.test(html));
+ assert(html.includes("event.source!==pending.popup")&&html.includes('event.data.state!==pending.state')&&html.includes('code_challenge_method:\'S256\''));
+ assert(html.includes('position:sticky;top:0'));assert(!html.includes('<script src="https://'));
+ console.log('PASS: findings, sanitised exports, pagination, restricted coverage, snapshot isolation, PKCE safeguards and sticky navigation.');
+})().catch(e=>{console.error(e);process.exit(1);});

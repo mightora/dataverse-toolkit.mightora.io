@@ -1,6 +1,6 @@
 {
   "format": "mightora-model-driven-app-navigation",
-  "version": 3,
+  "version": 4,
   "appUniqueName": "mightora_MightoraDataverseTools",
   "status": "implemented-in-genuine-exported-unmanaged-solution-source; import-test-pending",
   "resources": [
@@ -129,11 +129,20 @@
       "source": "webresources/mgt_solution_explorer.html",
       "intendedPrivileges": "export/read",
       "note": "In the actual Power Apps exported solution; Dataverse checks and live user privileges still require testing."
+    },
+    {
+      "title": "Platform Insights",
+      "group": "Diagnostics",
+      "pageType": "webresource",
+      "webResourceName": "mightora_mgt_insights",
+      "source": "webresources/mgt_insights.html",
+      "intendedPrivileges": "read",
+      "note": "Environment session plus optional delegated tenant sign-in. Live tenant testing outstanding."
     }
   ],
   "notes": [
-    "The real unpacked solution is deployment/mightora-dataverse-tools; the importable PAC-packed ZIP is deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip.",
-    "Five navigation groups, fourteen real HTML web resources, and existing app identity are included.",
+    "The real unpacked solution is deployment/mightora-dataverse-tools; the importable PAC-packed ZIP is deployment/MightoraDataverseTools_1_0_0_4_unmanaged.zip.",
+    "Five navigation groups, fifteen real HTML web resources, and existing app identity are included.",
     "Do not use the older deployment/mightora-dataverse-tools.zip; that file is the separate web-resource bundle."
   ]
 }
