@@ -30,6 +30,8 @@ jobs:
         run: python tests/test_migration.py
       - name: Run Configuration Migration Studio behaviour tests
         run: node tests/migration.test.cjs
+      - name: Test Platform Insights privacy, coverage and pagination
+        run: node tests/insights.test.cjs
       - uses: actions/configure-pages@v5
       - name: Bundle shared Mightora footer
         uses: mightora/shared-ui/.github/actions/sync-footer@main

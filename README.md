@@ -2,7 +2,7 @@
 
 Website: https://dataverse-tools.mightora.io/
 
-Fourteen browser-based HTML web resources for Microsoft Dataverse model-driven applications. Download from the site, or install files under webresources/ in an unmanaged solution.
+Fifteen browser-based HTML web resources for Microsoft Dataverse model-driven applications. Download from the site, or install files under webresources/ in an unmanaged solution.
 
 - Plugin Trace Explorer: `mgt_/trace.html` (`webresources/mgt_trace.html`)
 - Metadata Explorer: `mgt_/metadata.html` (`webresources/mgt_metadata.html`)
@@ -13,7 +13,7 @@ Fourteen browser-based HTML web resources for Microsoft Dataverse model-driven a
 
 Hosted previews use sample data; live data access requires an authenticated Dataverse session. These are early prototypes, not replacements with full XrmToolBox feature parity.
 
-A genuine PAC-packed **unmanaged model-driven app solution v1.0.0.3** is available at [deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip](deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip). It contains all 14 HTML web resources, the original app identity and five navigation groups. Import and live-operation tests in an actual Dataverse development environment are still outstanding. See docs/INSTALL.md. Open-source under MIT; no additional backend, token or client secret required.
+A genuine PAC-packed **unmanaged model-driven app solution v1.0.0.4** is available at [deployment/MightoraDataverseTools_1_0_0_4_unmanaged.zip](deployment/MightoraDataverseTools_1_0_0_4_unmanaged.zip). It contains all 15 HTML web resources, the original app identity and five navigation groups. Import and live-operation tests in an actual Dataverse development environment are still outstanding. See docs/INSTALL.md. Open-source under MIT; no additional backend, token or client secret required.
 
 ## Public Beta v0.2
 These tools are still undergoing tests and are not production-certified. Report bugs at https://github.com/mightora/dataverse-toolkit.mightora.io/issues.
@@ -57,10 +57,16 @@ All tools remain **Public Beta**. Live tenant connectivity and installation have
 
 ## Real exported unmanaged solution — 17 October 2026
 
-The user-provided solution v1.0.0.2 had ten genuine installed web resources and an app/sitemap. We preserved the publisher and component IDs, added four missing web resources (REST Studio, FetchFlow, Solution Explorer and Configuration Migration Studio), grouped the navigation into five sections, and repacked it using the **Microsoft Power Platform CLI** as **v1.0.0.3**.
+The user-provided solution v1.0.0.2 had ten genuine installed web resources and an app/sitemap. We preserved the publisher and component IDs, added four missing web resources (REST Studio, FetchFlow, Solution Explorer and Configuration Migration Studio), grouped the navigation into five sections, and repacked it using the **Microsoft Power Platform CLI** as **v1.0.0.4**.
 
-**[Download the actual unmanaged solution](deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip)** (not the older HTML-only distribution ZIP).
+**[Download the actual unmanaged solution](deployment/MightoraDataverseTools_1_0_0_4_unmanaged.zip)** (not the older HTML-only distribution ZIP).
 
-CI validates the unpacked source, 14 web resources, absence of Cloudflare tracking inside tenant pages, original role mappings, and the Microsoft-packaged ZIP's root components. The first six tools now reject unauthenticated live operations rather than silently substituting demo records; explicit `?demo=1` remains available for the public site.
+CI validates the unpacked source, 15 web resources, absence of Cloudflare tracking inside tenant pages, original role mappings, and the Microsoft-packaged ZIP's root components. The first six tools now reject unauthenticated live operations rather than silently substituting demo records; explicit `?demo=1` remains available for the public site.
 
 **Not yet tested in Dataverse:** import into a tenant, actual role access, web resource navigation and live Web API results. A green packaging check is not proof of those outcomes. Use a non-production environment and the [live test checklist](docs/INSTALL.md).
+
+## Platform Insights (Public Beta, solution v1.0.0.4)
+
+The fifteenth tool, `webresources/mgt_insights.html`, inspects solutions, workflow definitions, model-driven apps, canvas apps and Dataverse users using the current session. It shows per-source coverage, review findings with evidence, searchable inventory, JSON snapshots, CSV and printable reports. Snapshot comparisons reject different environments/tenants, sample/live mixes and incomplete scans.
+
+Optional tenant inventory uses a customer-provided Entra SPA app registration and OAuth authorisation code with PKCE. No client secret, external script or token persistence is used. It does not reuse the Dataverse session as a Power Platform API token. See [setup and limitations](docs/PLATFORM_INSIGHTS.md). Tenant OAuth/CORS, solution import and live results require tenant validation. The previous v1.0.0.4 download does not contain this tool; use the new v1.0.0.4 package once its packaging workflow succeeds.

@@ -20,7 +20,7 @@
     <LocalizedName description="Mightora Dataverse Tools" languagecode="1033" />
   </LocalizedNames>
   <Descriptions>
-    <Description description="Mightora Dataverse Tools — 14 developer utilities, grouped by capability. Public beta: these tools use real Dataverse API permissions and may expose data. REST Studio and Configuration Migration can modify records when authorised. https://dataverse-tools.mightora.io/" languagecode="1033" />
+    <Description description="Mightora Dataverse Tools — 15 developer utilities, grouped by capability. Public beta: these tools use real Dataverse API permissions and may expose data. REST Studio and Configuration Migration can modify records when authorised. https://dataverse-tools.mightora.io/" languagecode="1033" />
   </Descriptions>
   <appsettings>
     <appsetting settingdefinitionid.uniquename="AppChannel">

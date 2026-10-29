@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Synchronise all 14 maintained HTML files into the user's actual PAC-unpacked solution.
+"""Synchronise all 15 maintained HTML files into the user's actual PAC-unpacked solution.
 
 The source tree was exported by Power Apps on 2026-10-16. Preserve original
 component IDs and publisher, app identity, app roles, and unrelated metadata.
@@ -18,13 +18,14 @@ SOLUTION=FOLDER/"Other"/"Solution.xml"
 APP=FOLDER/"AppModules"/"mightora_MightoraDataverseTools"/"AppModule.xml"
 
 GROUPS=[
-    ("Diagnostics",("trace","counter","environment")),
+    ("Diagnostics",("trace","counter","environment","insights")),
     ("Tables and data model",("metadata","relationships","views","webresources")),
     ("Queries and APIs",("fetchxml","fetchflow","rest")),
     ("Solutions and migration",("solutions","solution_explorer","migration")),
     ("Security",("security",))
 ]
 NAMES={
+    "insights":"Platform Insights",
     "trace":"Plugin Trace Explorer",
     "counter":"Record Counter",
     "environment":"Environment Diagnostics",
@@ -41,7 +42,7 @@ NAMES={
     "security":"Security Role Catalogue"
 }
 SLUGS=tuple(s for _,slugs in GROUPS for s in slugs)
-assert len(SLUGS)==14 and len(set(SLUGS))==14
+assert len(SLUGS)==15 and len(set(SLUGS))==15
 assert all(p.exists() for p in (WEB,SITEMAP,SOLUTION,APP)), "Not a Power Apps unpacked solution"
 ET.register_namespace("xsi","http://www.w3.org/2001/XMLSchema-instance")
 # Match the Microsoft-managed resource IDs (never regenerate those).
@@ -79,7 +80,7 @@ for slug in SLUGS:
         component.find("DisplayName").text=NAMES[slug]
         component.find("WebResourceType").text="1"
         component.find("FileName").text="/WebResources/"+resource+str(guid).upper()
-        component.find("IntroducedVersion").text="1.0.0.3"
+        component.find("IntroducedVersion").text="1.0.0.4"
         ET.ElementTree(component).write(metadata,encoding="utf-8",xml_declaration=True)
         new_resources.append((slug,str(guid)))
     if not metadata.is_file():
@@ -91,7 +92,7 @@ assert manifest is not None
 assert manifest.findtext("UniqueName")=="MightoraDataverseTools"
 assert manifest.findtext("Managed")=="0"
 version=manifest.find("Version")
-version.text="1.0.0.3"
+version.text="1.0.0.4"
 roots=manifest.find("RootComponents")
 assert roots is not None
 for slug in SLUGS:
@@ -134,19 +135,19 @@ assert root.findtext("UniqueName")=="mightora_MightoraDataverseTools"
 # Do not replace existing app module ID, roles, logo or app settings.
 description=root.find("./Descriptions/Description")
 if description is not None:
-    description.set("description","Mightora Dataverse Tools — 14 developer utilities, grouped by capability. Public beta: these tools use real Dataverse API permissions and may expose data. REST Studio and Configuration Migration can modify records when authorised. https://dataverse-tools.mightora.io/")
+    description.set("description","Mightora Dataverse Tools — 15 developer utilities, grouped by capability. Public beta: these tools use real Dataverse API permissions and may expose data. REST Studio and Configuration Migration can modify records when authorised. https://dataverse-tools.mightora.io/")
 app.write(APP,encoding="utf-8",xml_declaration=True)
 
 # Fail hard on stale references before the official Microsoft packer starts.
 site=ET.parse(SITEMAP).getroot()
 urls=[e.attrib["Url"] for e in site.findall(".//SubArea")]
 expected={"$webresource:mightora_mgt_"+slug for slug in SLUGS}
-assert set(urls)==expected and len(urls)==14, (urls,expected)
+assert set(urls)==expected and len(urls)==15, (urls,expected)
 root=ET.parse(SOLUTION).getroot()
 names={e.attrib.get("schemaName") for e in root.findall("./SolutionManifest/RootComponents/RootComponent") if e.attrib.get("type")=="61"}
 assert all("mightora_mgt_"+slug in names for slug in SLUGS)
 assert all((WEB/("mightora_mgt_"+slug+".data.xml")).exists() for slug in SLUGS)
 
-print(f"Updated true unmanaged solution: 14 real HTML web resources, {len(GROUPS)} grouped sections.")
+print(f"Updated true unmanaged solution: 15 real HTML web resources, {len(GROUPS)} grouped sections.")
 print("Original ten metadata IDs retained; new resource IDs:",new_resources)
-print("Version updated to 1.0.0.3; preserved app identity, publisher and roles.")
+print("Version updated to 1.0.0.4; preserved app identity, publisher and roles.")

@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'webresources/**'
       - 'scripts/sync_unmanaged_solution.py'
       - 'tests/test_unmanaged_solution.py'
       - '.github/workflows/pack-unmanaged-solution.yml'
@@ -27,7 +28,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Synchronize 14 real tools, stable IDs and 5 app navigation groups
+      - name: Synchronize 15 real tools, stable IDs and 5 app navigation groups
         run: python scripts/sync_unmanaged_solution.py
       - name: Verify unpacked solution and connection-path regression
         run: |
@@ -39,24 +40,24 @@ jobs:
         uses: microsoft/powerplatform-actions/pack-solution@v1
         with:
           solution-folder: deployment/mightora-dataverse-tools
-          solution-file: deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip
+          solution-file: deployment/MightoraDataverseTools_1_0_0_4_unmanaged.zip
           solution-type: Unmanaged
       - name: Check packed Dataverse solution contents
-        run: python tests/test_unmanaged_solution.py deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip
+        run: python tests/test_unmanaged_solution.py deployment/MightoraDataverseTools_1_0_0_4_unmanaged.zip
       - name: Publish downloadable ZIP as workflow artifact
         uses: actions/upload-artifact@v4
         with:
-          name: MightoraDataverseTools-v1.0.0.3-unmanaged-beta
-          path: deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip
+          name: MightoraDataverseTools-v1.0.0.4-unmanaged-beta
+          path: deployment/MightoraDataverseTools_1_0_0_4_unmanaged.zip
           retention-days: 30
       - name: Commit genuine unpacked files and packed unmanaged ZIP
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add deployment/mightora-dataverse-tools/
-          git add deployment/MightoraDataverseTools_1_0_0_3_unmanaged.zip
+          git add deployment/MightoraDataverseTools_1_0_0_4_unmanaged.zip
           if ! git diff --cached --quiet; then
-            git commit -m "build: package real 14-tool Mightora unmanaged solution v1.0.0.3"
+            git commit -m "build: package real 15-tool Mightora unmanaged solution v1.0.0.4"
             git pull --rebase origin main
             git push origin HEAD:main
           fi

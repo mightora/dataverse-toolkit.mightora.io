@@ -9,16 +9,16 @@ MANIFEST=SOLUTION/"Other/Solution.xml"
 SITEMAP=SOLUTION/"AppModuleSiteMaps/mightora_MightoraDataverseTools/AppModuleSiteMap.xml"
 APP=SOLUTION/"AppModules/mightora_MightoraDataverseTools/AppModule.xml"
 SLUGS=("trace","counter","environment","metadata","relationships","views","webresources",
-       "fetchxml","fetchflow","rest","solutions","solution_explorer","migration","security")
+       "fetchxml","fetchflow","rest","solutions","solution_explorer","migration","security","insights")
 
-assert len(SLUGS)==14
+assert len(SLUGS)==15
 sol=ET.parse(MANIFEST).getroot().find("SolutionManifest")
 assert sol.findtext("UniqueName")=="MightoraDataverseTools"
 assert sol.findtext("Managed")=="0"
-assert sol.findtext("Version")=="1.0.0.3"
+assert sol.findtext("Version")=="1.0.0.4"
 roots=sol.find("RootComponents")
 names={x.attrib.get("schemaName") for x in roots.findall("RootComponent") if x.attrib.get("type")=="61"}
-assert len(names)>=15 # fourteen tools plus existing image logo
+assert len(names)>=16 # fifteen tools plus existing image logo
 assert set("mightora_mgt_"+s for s in SLUGS).issubset(names)
 app=ET.parse(APP).getroot()
 assert app.findtext("UniqueName")=="mightora_MightoraDataverseTools"
@@ -27,7 +27,7 @@ site=ET.parse(SITEMAP).getroot()
 groups=site.findall("./SiteMap/Area/Group")
 assert len(groups)==5, f"Expected five navigation groups, got {len(groups)}"
 links=site.findall(".//SubArea")
-assert len(links)==14
+assert len(links)==15
 assert {x.attrib["Url"] for x in links}=={"$webresource:mightora_mgt_"+x for x in SLUGS}
 assert all(x.attrib.get("AvailableOffline")=="false" for x in links)
 ids=set()
@@ -50,7 +50,7 @@ for slug in SLUGS:
     if slug not in ("solution_explorer",):
         assert "ClientGlobalContext.js.aspx" in html
 assert (WEB/"mightora_logo.data.xml").exists()
-print("PASS: real unmanaged source, 14 resources, 5 groups, stable IDs, no telemetry.")
+print("PASS: real unmanaged source, 15 resources, 5 groups, stable IDs, no telemetry.")
 
 if len(sys.argv)>1:
     package=Path(sys.argv[1])
@@ -58,12 +58,12 @@ if len(sys.argv)>1:
         entries=set(archive.namelist())
         assert "solution.xml" in entries and "customizations.xml" in entries
         manifest=ET.fromstring(archive.read("solution.xml")).find("SolutionManifest")
-        assert manifest.findtext("Version")=="1.0.0.3"
+        assert manifest.findtext("Version")=="1.0.0.4"
         rc={x.attrib.get("schemaName") for x in manifest.findall("./RootComponents/RootComponent") if x.attrib.get("type")=="61"}
         assert {"mightora_mgt_"+s for s in SLUGS}.issubset(rc)
-        assert sum(p.startswith("WebResources/mightora_mgt_") for p in entries)>=14
+        assert sum(p.startswith("WebResources/mightora_mgt_") for p in entries)>=15
         customizations=archive.read("customizations.xml").decode("utf-8-sig")
         assert "mightora_MightoraDataverseTools" in customizations
         for slug in SLUGS:
             assert ("mightora_mgt_"+slug) in customizations, slug
-    print("PASS: Microsoft-packed ZIP has 14 tool references and real solution/app components.")
+    print("PASS: Microsoft-packed ZIP has 15 tool references and real solution/app components.")
