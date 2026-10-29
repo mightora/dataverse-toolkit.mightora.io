@@ -32,7 +32,7 @@ jobs:
         run: node tests/migration.test.cjs
       - name: Test Platform Insights privacy, coverage and pagination
         run: node tests/insights.test.cjs
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
       - name: Bundle shared Mightora footer
         uses: mightora/shared-ui/.github/actions/sync-footer@main
         with:
